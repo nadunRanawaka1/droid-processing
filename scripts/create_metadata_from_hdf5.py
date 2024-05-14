@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from matplotlib.colors import is_color_like
 from statistics import mean
+import argparse
 
 GRIPPER_STATE_WINDOW_LENGTH = 10
 
@@ -188,6 +189,22 @@ def create_metadata(demo_path, save_path=None):
     df.to_excel(save_path)
 
     print()
-demo_fn = "/media/nadun/Data/Droid/droid_hdf5/droid_100.hdf5"
-create_metadata(demo_fn, save_path="/media/nadun/Data/Droid/droid_hdf5/droid_100_metadata_v3.xlsx")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--droid_path",
+                        type=str,
+                        required=True,
+                        help="path to droid")
+
+    parser.add_argument("--save_dir",
+                        type=str,
+                        required=True,
+                        help="where to save metadata")
+
+    args = parser.parse_args()
+    demo_fn = args.droid_path
+    save_path = f"{args.save_dir}/droid_metadata.xlsx"
+    create_metadata(demo_fn, save_path=save_path)
 

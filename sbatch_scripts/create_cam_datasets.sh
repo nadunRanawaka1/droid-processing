@@ -14,3 +14,6 @@ source ~/.bashrc
 source /nethome/nkra3/flash7/miniconda3/etc/profile.d/conda.sh
 conda deactivate
 conda activate droid
+
+cd /coc/flash7/nkra3/Droid/droid-processing
+srun -u python -u scripts/create_datasets_from_droid.py --droid_path="/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5" --save_dir="/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets"
