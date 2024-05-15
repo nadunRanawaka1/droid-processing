@@ -18,5 +18,5 @@ conda activate droid
 cd /coc/flash7/nkra3/Droid/droid-processing
 
 
-srun -u python -u scripts/create_grid_of_initial_images.py --cam1_path = "/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets/droid_cam_1_agentview.hdf5" --cam2_path = "/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets/droid_cam_2_agentview.hdf5" --save_dir="/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets"
+srun -u python -u scripts/create_grid_of_initial_images.py --cam1_path="/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets/droid_cam_1_agentview.hdf5" --cam2_path="/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets/droid_cam_2_agentview.hdf5" --save_dir="/coc/flash7/nkra3/Droid/droid_hdf5/exp_datasets"
 
