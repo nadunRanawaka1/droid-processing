@@ -132,10 +132,8 @@ def create_metadata(demo_path, save_path=None):
         if (num_demos % 1000) == 0:
             print(f"Processing demo: {num_demos}")
 
-
         num_demos += 1
         demo = demos[demo]
-
 
         ### Add language instructions
         lang_1_list.append(demo.attrs["language_instruction_1"])
