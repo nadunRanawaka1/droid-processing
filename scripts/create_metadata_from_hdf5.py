@@ -128,9 +128,11 @@ def create_metadata(demo_path, save_path=None):
     num_demos = 0
 
     for demo in demos:
-        print(f"Processing demo: {num_demos}")
-        if num_demos == 100:
-            break
+
+        if (num_demos % 1000) == 0:
+            print(f"Processing demo: {num_demos}")
+
+
         num_demos += 1
         demo = demos[demo]
 
