@@ -129,11 +129,11 @@ def create_metadata(demo_path, save_path=None):
 
     for demo in demos:
         print(f"Processing demo: {num_demos}")
+        if num_demos == 100:
+            break
         num_demos += 1
         demo = demos[demo]
 
-        if num_demos == 100:
-            break
 
         ### Add language instructions
         lang_1_list.append(demo.attrs["language_instruction_1"])
