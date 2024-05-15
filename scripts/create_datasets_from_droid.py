@@ -26,6 +26,8 @@ def create_droid_cam_views(droid_hdf_path, save_path):
             break
     demo_list = sorted(demo_list, key=lambda tup:tup[1])
 
+    print("Finished selecting demos for creating cam datasets")
+
     # Create hdf5 files for saving
     cam_1_renamed_file = h5py.File(f"{save_path}/droid_cam_1_agentview.hdf5", "w")
     cam_2_renamed_file = h5py.File(f"{save_path}/droid_cam_2_agentview.hdf5", "w")
@@ -46,6 +48,7 @@ def create_droid_cam_views(droid_hdf_path, save_path):
     cam2_fig, cam2_ax = plt.subplots(nrows=grid_size, ncols=grid_size)
 
     for demo in demo_list:
+        print(f"Adding demo num {demo_num} to datasets.")
         demo, _ = demo
         demo_data = droid[demo]
 

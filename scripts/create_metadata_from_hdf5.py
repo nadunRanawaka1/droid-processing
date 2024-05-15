@@ -128,8 +128,12 @@ def create_metadata(demo_path, save_path=None):
     num_demos = 0
 
     for demo in demos:
+        print(f"Processing demo: {num_demos}")
         num_demos += 1
         demo = demos[demo]
+
+        if num_demos == 100:
+            break
 
         ### Add language instructions
         lang_1_list.append(demo.attrs["language_instruction_1"])
@@ -188,7 +192,6 @@ def create_metadata(demo_path, save_path=None):
     df = pd.DataFrame(data)
     df.to_excel(save_path)
 
-    print()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
