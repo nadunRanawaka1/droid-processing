@@ -8,6 +8,8 @@ from robomimic.utils.obs_utils import batch_image_hwc_to_chw
 
 def create_cam_grids(cam1_path, cam2_path, savedir):
 
+    print("Started creating cam grids")
+
     cam1_list  = []
     cam2_list = []
 
@@ -15,6 +17,7 @@ def create_cam_grids(cam1_path, cam2_path, savedir):
     cam2_data = h5py.File(cam2_path)['data']
 
     for demo in cam1_data:
+        print(f"Processing demo num: {demo}")
         demo_cam1 = cam1_data[demo]
         demo_cam2 = cam2_data[demo]
 
