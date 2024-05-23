@@ -42,7 +42,7 @@ def get_action_info(demo):
             num_closes += 1
             close_time = i
             gripper_close_times.append(close_time)
-            pick_times.append((action_start_time, close_time)) # when the gripper closes from open, we assume a pick action has happened
+            pick_times.append([action_start_time, close_time]) # when the gripper closes from open, we assume a pick action has happened
             pick_locations.append(demo["obs/cartesian_position"][close_time])
             action_start_time = close_time
             curr_open = ~curr_open
@@ -50,13 +50,16 @@ def get_action_info(demo):
             num_opens += 1
             open_time = i
             gripper_open_times.append(open_time)
-            place_times.append((action_start_time,open_time)) # when the gripper opens, we assume a place action has happened
+            place_times.append([action_start_time,open_time]) # when the gripper opens, we assume a place action has happened
             place_locations.append(demo["obs/cartesian_position"][open_time])
             action_start_time = open_time
             curr_open = ~curr_open
         i += 1
 
-    return num_opens, num_closes, gripper_open_times, gripper_close_times, pick_times, place_times, pick_locations, place_locations
+    return (num_opens, num_closes,
+            np.array(gripper_open_times, dtype=np.int64), np.array(gripper_close_times, dtype=np.int64),
+            np.array(pick_times, dtype=np.int64), np.array(place_times, dtype=np.int64),
+            np.array(pick_locations), np.array(place_locations))
 
 def get_pick_and_place_locations(demo, num_gripper_opens, num_gripper_closes):
 
@@ -171,6 +174,14 @@ def create_metadata(demo_path, save_path=None):
         place_locations_per_demo.append(place_locations)
 
 
+    # Turn lists into numpy arrays for easy querying
+    # gripper_open_times_per_demo = np.array(gripper_close_time_per_demo, dtype=np.int64)
+    # gripper_close_time_per_demo = np.array(gripper_close_time_per_demo, dtype=np.int64)
+    # pick_time_per_demo = np.array(pick_time_per_demo, dtype=np.int64)
+    # place_time_per_demo = np.array(place_time_per_demo, dtype=np.int64)
+    # pick_locations_per_demo = np.array(pick_locations_per_demo, dtype=np.float64)
+    # place_locations_per_demo = np.array(place_locations_per_demo, dtype=np.float64)
+
 
     ### Make a dataframe with all the info
     demo_nums = range(num_demos)
@@ -190,7 +201,9 @@ def create_metadata(demo_path, save_path=None):
             "pick_locations": pick_locations_per_demo,
             "place_locations":place_locations_per_demo}
     df = pd.DataFrame(data)
-    df.to_excel(save_path)
+    pick_locations_list = df['pick_locations'].tolist()
+
+    df.to_pickle(save_path)
 
 
 if __name__ == "__main__":
@@ -198,16 +211,18 @@ if __name__ == "__main__":
 
     parser.add_argument("--droid_path",
                         type=str,
-                        required=True,
+                        # required=True,
+                        default="/home/nadun/Data/Droid/droid_hdf5/droid_100.hdf5",
                         help="path to droid")
 
     parser.add_argument("--save_dir",
                         type=str,
-                        required=True,
+                        # required=True,
+                        default='/home/nadun/Data/Droid/droid_hdf5',
                         help="where to save metadata")
 
     args = parser.parse_args()
     demo_fn = args.droid_path
-    save_path = f"{args.save_dir}/droid_metadata.xlsx"
+    save_path = f"{args.save_dir}/droid_metadata.pkl"
     create_metadata(demo_fn, save_path=save_path)
 
