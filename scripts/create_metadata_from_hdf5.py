@@ -4,6 +4,7 @@ import numpy as np
 from matplotlib.colors import is_color_like
 from statistics import mean
 import argparse
+import time
 
 GRIPPER_STATE_WINDOW_LENGTH = 10
 
@@ -129,11 +130,12 @@ def create_metadata(demo_path, save_path=None):
     place_time_per_demo = []
 
     num_demos = 0
+    start = time.time()
 
     for demo in demos:
 
         if (num_demos % 1000) == 0:
-            print(f"Processing demo: {num_demos}")
+            print(f"Processing demo: {num_demos} . Time elapsed: {time.time() - start}")
 
         num_demos += 1
         demo = demos[demo]
