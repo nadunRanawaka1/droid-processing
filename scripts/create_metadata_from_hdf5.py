@@ -203,7 +203,6 @@ def create_metadata(demo_path, save_path=None):
             "pick_locations": pick_locations_per_demo,
             "place_locations":place_locations_per_demo}
     df = pd.DataFrame(data)
-    pick_locations_list = df['pick_locations'].tolist()
 
     df.to_pickle(save_path)
 
