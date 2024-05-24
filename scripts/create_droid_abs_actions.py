@@ -1,6 +1,7 @@
 import h5py
 import numpy as np
 import argparse
+import time
 
 def droid_to_real_format(droid_path):
 
@@ -8,10 +9,11 @@ def droid_to_real_format(droid_path):
 
     droid_data = droid['data']
     processed = 0
+    start = time.time()
     for demo_name in droid_data:
 
         if (processed % 1000) == 0:
-            print(f"Processed demo : {processed}")
+            print(f"Processed demo : {processed} . Time elapsed: {time.time() - start}")
         processed += 1
         demo = droid_data[demo_name]
 
@@ -20,8 +22,9 @@ def droid_to_real_format(droid_path):
         gripper_action = demo['gripper_position_action'][:]
         gripper_action_copy = np.copy(gripper_action)
         gripper_action_copy[gripper_action_copy < 0.5] = -1.0
-        gripper_action_copy[gripper_action_copy >= 0.5] = 0.0
+        gripper_action_copy[gripper_action_copy >= 0.5] = 1.0
         absolute_action = np.concatenate((ee_action, gripper_action_copy), axis=1)
+        del droid_data[f'{demo_name}/absolute_actions']
         droid_data.create_dataset(f'{demo_name}/absolute_actions', data=absolute_action)
 
     droid.close()

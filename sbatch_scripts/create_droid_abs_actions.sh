@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=create_droid_abs_actions
-#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/create_droid_abs_actions.out
-#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/create_droid_abs_actions.err
+#SBATCH --job-name=create_droid_abs_actions_gripper_action_adjusted
+#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/create_droid_abs_actions_gripper_action_adjusted.out
+#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/create_droid_abs_actions_gripper_action_adjusted.err
 #SBATCH --partition=rl2-lab
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
