@@ -1,9 +1,16 @@
 from robomimic.utils.file_utils import create_hdf5_filter_key
+import pickle
 
-droid_file_path = ""
+droid_file_path = "/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5"
 
-filter_keys_to_list_of_demos_file_path = "" #pickle file
+filter_keys_to_list_of_demos_file_path = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/hdf_filter_dict.pkl" #pickle file
 
-for filter_key in filter_keys_to_list_of_demos_file_path:
-    demo_keys = filter_keys_to_list_of_demos_file_path[filter_key]
-    create_hdf5_filter_key(droid_file_path, demo_keys, filter_key)
+f = open(filter_keys_to_list_of_demos_file_path, 'rb')
+filter_keys_to_list_of_demos = pickle.load(f)
+
+for filter_key in filter_keys_to_list_of_demos:
+    demo_keys = filter_keys_to_list_of_demos[filter_key]
+    ep_lengths = create_hdf5_filter_key(droid_file_path, demo_keys, filter_key)
+    print(ep_lengths)
+
+f.close()
