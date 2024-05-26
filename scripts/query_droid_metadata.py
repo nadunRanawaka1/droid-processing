@@ -32,8 +32,8 @@ mean_pick_locations = np.mean(pick_locations_array, axis=0)
 std_pick_locations = np.std(pick_locations_array, axis=0)
 
 # The small spatial range is within one std dev of the mean
-small_spatial_range_low = mean_pick_locations - std_pick_locations
-small_spatial_range_high = mean_pick_locations + std_pick_locations
+small_spatial_range_low = mean_pick_locations - 0.75 * std_pick_locations
+small_spatial_range_high = mean_pick_locations + 0.75 * std_pick_locations
 
 # The large spatial range is within 3 std dev of the mean
 large_spatial_range_low = mean_pick_locations - std_pick_locations * 3
@@ -48,6 +48,7 @@ large_spatial_range_mask = np.alltrue(np.logical_and(pick_locations_array >= lar
 large_spatial_range_df = only_single_picks[large_spatial_range_mask]
 
 small_spatial_range_demos = small_spatial_range_df['Demo']
+print(len(small_spatial_range_demos))
 large_spatial_range_demos = large_spatial_range_df['Demo']
 
 sampled_small_spatial_range_demos = small_spatial_range_demos.sample(n=1000).to_list()
