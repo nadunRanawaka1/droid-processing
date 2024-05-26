@@ -1,19 +1,43 @@
 import pickle
 import nexusformat.nexus as nx
 import h5py
+import random
 
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/place_bowl_on_plate/place_bowl_on_plate_vary_bowl_location_big_10_demos_demo.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/droid_100.hdf5"
 
-# demo_file = nx.nxload(demo_fn)
-# print(demo_file.tree)
+pickle_path = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/selected_agent_view_dict_droid_100.pkl"
+
+demo_file = nx.nxload(demo_fn)
+print(demo_file.tree)
 
 demo_file = h5py.File(demo_fn)
 
-masks = demo_file['mask']
-print(masks['pick_place_large_spatial'][:])
-print(masks['pick_place_small_spatial'][:])
+demos = demo_file['data']
+
+demo_list = []
+
+for demo in demos:
+    demo_list.append(demo)
+
+random.shuffle(demo_list)
+
+print(len(demo_list) // 2)
+
+selected_right = demo_list[:len(demo_list) // 2]
+selected_left = demo_list[len(demo_list) // 2 :]
+
+selected_agent_view_dict = {
+    "shoulderview_right_image" : selected_right,
+    "shoulderview_left_image" : selected_left
+}
+
+
+print(selected_agent_view_dict)
 
 demo_file.close()
+
+with open(pickle_path, "wb") as f:
+    pickle.dump(selected_agent_view_dict, f)
 
 
