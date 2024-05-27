@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 
-metadata_path = "/media/nadun/Data/Droid/droid_hdf5/droid_metadata.xlsx"
+# metadata_path = "/media/nadun/Data/Droid/droid_hdf5/droid_metadata.xlsx"
 metadata_path = "/home/nadun/Data/Droid/droid_hdf5/droid_metadata.pkl"
 
 df = pd.read_pickle(metadata_path)

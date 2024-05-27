@@ -130,9 +130,11 @@ def create_metadata(demo_path, save_path=None):
     place_time_per_demo = []
 
     num_demos = 0
+    demo_nums = []
     start = time.time()
 
     for demo in demos:
+        demo_nums.append(demo)
 
         if (num_demos % 1000) == 0:
             print(f"Processing demo: {num_demos} . Time elapsed: {time.time() - start}")
@@ -186,7 +188,7 @@ def create_metadata(demo_path, save_path=None):
 
 
     ### Make a dataframe with all the info
-    demo_nums = range(num_demos)
+
     data = {"Demo": demo_nums,
             "language_instruction_1": lang_1_list,
             "language_instruction_2": lang_2_list,
