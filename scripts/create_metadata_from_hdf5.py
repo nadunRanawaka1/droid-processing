@@ -6,7 +6,7 @@ from statistics import mean
 import argparse
 import time
 
-GRIPPER_STATE_WINDOW_LENGTH = 10
+GRIPPER_STATE_WINDOW_LENGTH = 15
 
 
 def get_colors_in_string(string):

@@ -4,13 +4,13 @@ import os
 import h5py
 import nexusformat.nexus as nx
 
-demo_fn = "/media/nadun/Data/Droid/droid_hdf5/modified_datasets/droid_100_selected_agentview.hdf5"
-video_folder = "/media/nadun/Data/Droid/droid_hdf5" #Destination
+demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/pick_place_datasets/droid_1000_large_spatial_agentview_left.hdf5"
+# video_folder = "/media/nadun/Data/Droid/droid_hdf5" #Destination
 
 CAMERA_NAME = "selected_agentview_image"
-OUTPUT_FOLDER_NAME = "/media/nadun/Data/Droid/droid_hdf5/droid_exp_datasets"
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos"
 
-video_folder = os.path.join(video_folder,OUTPUT_FOLDER_NAME)
+video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
     os.makedirs(video_folder)
 

@@ -42,6 +42,7 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
 
                     # Next, set the selected agentview camera
                     processed_dataset_grp[f"demo_{num_written}/obs/selected_agentview_image"] = processed_dataset_grp[f"demo_{num_written}/obs/{camera}"]
+                    processed_dataset_grp[f"demo_{num_written}"].attrs["Original_Droid_Demo_Number"] = demo
 
                     num_written += 1
 
