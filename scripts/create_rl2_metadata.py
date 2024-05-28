@@ -102,6 +102,8 @@ metric_dict = {
     "std_place_locations": std_place_locations
 }
 
+print(metric_dict)
+
 with open("place_bowl_on_plate_spatial_metrics.pkl", "wb") as f:
     pickle.dump(metric_dict, f)
 
