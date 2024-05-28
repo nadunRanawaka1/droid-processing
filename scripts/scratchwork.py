@@ -3,13 +3,20 @@ import nexusformat.nexus as nx
 import h5py
 import random
 
-demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/pick_place_datasets/droid_1000_demos_small_spatial_diversity_agentview_mix.hdf5"
+
+# demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/pick_place_datasets/droid_1000_demos_small_spatial_diversity_agentview_mix.hdf5"
+
+filter_dict_path = "/media/nadun/Data/Droid/droid-processing/droid_filter_keys/hdf_filter_dict.pkl"
+
+with open(filter_dict_path, "rb") as f:
+    filter_dict = pickle.load(f)
+    print()
 
 # pickle_path_1 = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/selected_agent_view_as_left_dict_droid_small_spatial.pkl"
 # pickle_path_2 = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/selected_agent_view_as_left_dict_droid_large_spatial.pkl"
 
-demo_file = nx.nxload(demo_fn)
-print(demo_file.tree)
+# demo_file = nx.nxload(demo_fn)
+# print(demo_file.tree)
 
 # demo_file = h5py.File(demo_fn, 'r')
 
