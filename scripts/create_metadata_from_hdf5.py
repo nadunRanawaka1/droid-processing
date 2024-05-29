@@ -5,8 +5,11 @@ from matplotlib.colors import is_color_like
 from statistics import mean
 import argparse
 import time
+import re
 
 GRIPPER_STATE_WINDOW_LENGTH = 15
+
+SUCCESS_REGEX = ".*/success/.*"
 
 
 def get_colors_in_string(string):
@@ -129,6 +132,8 @@ def create_metadata(demo_path, save_path=None):
     pick_time_per_demo = []
     place_time_per_demo = []
 
+    success = []
+
     num_demos = 0
     demo_nums = []
     start = time.time()
@@ -141,6 +146,11 @@ def create_metadata(demo_path, save_path=None):
 
         num_demos += 1
         demo = demos[demo]
+
+        ### First check if the demo is successful
+        filepath = demo.attrs["filepath"]
+        is_successful = re.match(SUCCESS_REGEX, filepath) is not None
+        success.append(is_successful)
 
         ### Add language instructions
         lang_1_list.append(demo.attrs["language_instruction_1"])
@@ -190,6 +200,7 @@ def create_metadata(demo_path, save_path=None):
     ### Make a dataframe with all the info
 
     data = {"Demo": demo_nums,
+            "success": success,
             "language_instruction_1": lang_1_list,
             "language_instruction_2": lang_2_list,
             "language_instruction_3": lang_3_list,
