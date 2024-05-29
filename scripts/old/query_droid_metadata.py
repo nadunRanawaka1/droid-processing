@@ -61,11 +61,11 @@ list_string = map(str, sampled_large_spatial_range_demos)
 sampled_large_spatial_range_demos = list(list_string)
 
 hdf_filter_dict = {
-    'pick_place_small_spatial': sampled_small_spatial_range_demos,
-    'pick_place_large_spatial': sampled_large_spatial_range_demos
+    'pick_bowl_location_similar_to_target': sampled_small_spatial_range_demos,
+    'pick_bowl_location_': sampled_large_spatial_range_demos
 }
 
-with open('hdf_filter_dict.pkl', 'wb') as f:
+with open('droid_filter_dict_bowl_pick_place.pkl', 'wb') as f:
     pickle.dump(hdf_filter_dict, f)
 print()
 

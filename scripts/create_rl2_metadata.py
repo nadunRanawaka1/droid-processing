@@ -71,14 +71,35 @@ demos = demo_file["data"]
 all_pick_locations = []
 all_place_locations = []
 
+demo_nums = []
+gripper_open_times_per_demo = [] # when in the demo the gripper opened (from closed state)
+gripper_close_time_per_demo = []
+
+
+pick_locations_per_demo = []
+place_locations_per_demo = []
+pick_time_per_demo = []
+place_time_per_demo = []
+
+
 for demo in demos:
+    demo_nums.append(demo)
+
     demo = demos[demo]
+
 
     ### Get gripper opens and closes, and based on that pick and place action info
     (gripper_opens, gripper_closes, gripper_open_times, gripper_close_times,
         pick_times, place_times, pick_locations, place_locations) = get_action_info(demo)
 
 
+    gripper_open_times_per_demo.append(gripper_open_times)
+    gripper_close_time_per_demo.append(gripper_close_times)
+
+    pick_time_per_demo.append(pick_times)
+    place_time_per_demo.append(place_times)
+    pick_locations_per_demo.append(pick_locations)
+    place_locations_per_demo.append(place_locations)
 
     all_pick_locations.append(pick_locations)
     all_place_locations.append(place_locations)
@@ -88,12 +109,22 @@ print(all_pick_locations.shape)
 
 mean_pick_locations = np.mean(all_pick_locations, axis=0)
 std_pick_locations = np.std(all_pick_locations, axis=0)
-print(mean_pick_locations)
+print(f" Mean pick locations is : {mean_pick_locations}")
 
 all_place_locations = np.concatenate(all_place_locations)
 mean_place_locations = np.mean(all_place_locations, axis=0)
 std_place_locations = np.std(all_place_locations, axis=0)
-print(mean_place_locations)
+print(f" Mean place locations is {mean_place_locations}")
+
+min_pick_locations = np.min(all_pick_locations, axis=0)
+max_pick_locations = np.max(all_pick_locations, axis=0)
+
+print(f" Min pick locations : {min_pick_locations}. Max pick location: {max_pick_locations}")
+
+min_place_locations = np.min(all_place_locations, axis=0)
+max_place_locations = np.max(all_place_locations, axis=0)
+
+print(f" Min place locations : {min_place_locations}. Max place location: {max_place_locations}")
 
 metric_dict = {
     "mean_pick_locations": mean_pick_locations,
@@ -102,10 +133,22 @@ metric_dict = {
     "std_place_locations": std_place_locations
 }
 
+
+data = {"Demo": demo_nums,
+            "gripper_open_timesteps": gripper_open_times_per_demo,
+            "gripper_close_timesteps": gripper_close_time_per_demo,
+            "pick_skill_timestep_ranges": pick_time_per_demo,
+            "place_skill_timestep_ranges": place_time_per_demo,
+            "pick_locations": pick_locations_per_demo,
+            "place_locations":place_locations_per_demo}
+df = pd.DataFrame(data)
+
+df.to_pickle("place_bowl_on_plate_spatial_metrics.pkl")
+
+
 print(metric_dict)
 
-with open("place_bowl_on_plate_spatial_metrics.pkl", "wb") as f:
-    pickle.dump(metric_dict, f)
+
 
 
 
