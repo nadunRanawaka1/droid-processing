@@ -30,8 +30,10 @@ df = df[pick_mask]
 
 search_strings = ["place", "put"]
 place_mask = df['language_instruction_1'].str.contains('|'.join(search_strings), case=False) | df['language_instruction_2'].str.contains('|'.join(search_strings), case=False) | df['language_instruction_3'].str.contains('|'.join(search_strings), case=False)
-
 df = df[place_mask]
+
+# Now, only pick successful demos
+df = df[df["success"] == True]
 
 
 # Next we pick demos that have only one pick and place action
@@ -56,6 +58,26 @@ in_target_df = df[in_target_demo_mask]
 
 ood_target_demo_mask = np.alltrue(np.logical_and(pick_locations_array >= min_ood_pick_locations, pick_locations_array <= max_ood_pick_locations), axis=1)
 ood_target_df = df[ood_target_demo_mask]
+
+in_target_demos = in_target_df["Demo"]
+ood_target_demos = ood_target_df["Demo"]
+
+in_target_demos = in_target_demos.sample(n=1000).to_list()
+ood_target_demos = ood_target_demos.sample(n=1000).to_list()
+
+list_string = map(str, in_target_demos)
+in_target_demos = list(list_string)
+
+list_string = map(str, ood_target_demos)
+ood_target_demos = list(list_string)
+
+hdf_filter_dict = {
+    "pick_location_in_target": in_target_demos,
+    "pick_location_not_in_target": ood_target_demos
+}
+
+with open('../droid_filter_keys/droid_filter_dict_pick_location_in_and_ood_target.pkl', 'wb') as f:
+    pickle.dump(hdf_filter_dict, f)
 
 # The small spatial range is within 0.75 std dev of the mean
 # small_spatial_range_low = mean_pick_locations - 0.75 * std_pick_locations
