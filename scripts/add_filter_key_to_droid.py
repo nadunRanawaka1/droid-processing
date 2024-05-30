@@ -3,7 +3,7 @@ import pickle
 
 droid_file_path = "/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5"
 
-filter_keys_to_list_of_demos_file_path = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/hdf_filter_dict.pkl" #pickle file
+filter_keys_to_list_of_demos_file_path = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/droid_filter_dict_pick_location_in_and_ood_target.pkl" #pickle file
 
 f = open(filter_keys_to_list_of_demos_file_path, 'rb')
 filter_keys_to_list_of_demos = pickle.load(f)

@@ -15,6 +15,7 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
     """
     f = open(agentview_dict_fn, 'rb')
     agentview_dict = pickle.load(f) # agentview dict : {"real_camera_name" : list of demos to set this camera as agentview}
+    
 
     start = time.time()
 
@@ -30,6 +31,7 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
 
             for camera in agentview_dict:
                 selected_demos = agentview_dict[camera]
+                
 
                 for demo in selected_demos:
 
@@ -42,7 +44,7 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
 
                     # Next, set the selected agentview camera
                     processed_dataset_grp[f"demo_{num_written}/obs/selected_agentview_image"] = processed_dataset_grp[f"demo_{num_written}/obs/{camera}"]
-                    processed_dataset_grp[f"demo_{num_written}"].attrs["Original_Droid_Demo_Number"] = demo
+                    # processed_dataset_grp[f"demo_{num_written}"].attrs["Original_Droid_Demo_Number"] = demo
 
                     num_written += 1
 
