@@ -60,7 +60,7 @@ def get_action_info(demo):
 
 
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/place_bowl_on_plate/place_bowl_on_plate_vary_both_locations_big_demo_selected_agentview.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/place_screwdriver_in_drawer/place_screwdriver_in_drawer_demo.hdf5"
 demo_file = nx.nxload(demo_fn)
 
 print(demo_file.tree)
@@ -143,7 +143,7 @@ data = {"Demo": demo_nums,
             "place_locations":place_locations_per_demo}
 df = pd.DataFrame(data)
 
-df.to_pickle("place_bowl_on_plate_spatial_metrics.pkl")
+df.to_pickle("/nethome/nkra3/flash7/Droid/droid-processing/metadata/place_screwdriver_in_drawer_spatial_metrics.pkl")
 
 
 print(metric_dict)
