@@ -5,11 +5,11 @@ import pickle
 
 # Setting some stuff for our query
 
-min_target_pick_locations  = np.array([0.32, -0.35, 0.05])
-max_target_pick_locations  = np.array([0.80, -0.15, 0.30])
+min_target_pick_locations  = np.array([0.40, -0.10, 0.05])
+max_target_pick_locations  = np.array([0.70, 0.25, 0.45])
 
-min_ood_pick_locations     = np.array([0.32, 0.15, 0.05])
-max_ood_pick_locations     = np.array([0.80, 0.45, 0.30])
+min_ood_pick_locations     = np.array([0.50, -0.50, 0.05])
+max_ood_pick_locations     = np.array([0.80, -0.10, 0.50])
 
 min_target_place_locations = [0.32, 0.129339, 0.153875]
 max_target_place_locations = [0.80, 0.204588, 0.237842]
@@ -44,7 +44,7 @@ pick_locations_array = np.concatenate(pick_locations)[:, 0:3]
 
 # Next we filter the demos based on the z location because we want demos that have a z location close to the base of the robot
 z_locations = pick_locations_array[:, 2]
-z_mask = np.logical_and(z_locations >= -0.05, z_locations <= 0.30)
+z_mask = np.logical_and(z_locations >= -0.05, z_locations <= 0.50)
 df = df[z_mask]
 
 pick_locations = df['pick_locations'].tolist()
@@ -71,12 +71,15 @@ in_target_demos = list(list_string)
 list_string = map(str, ood_target_demos)
 ood_target_demos = list(list_string)
 
+print(len(in_target_demos))
+print(len(ood_target_demos))
+
 hdf_filter_dict = {
-    "pick_location_in_target": in_target_demos,
-    "pick_location_not_in_target": ood_target_demos
+    "pick_location_in_target_screwdriver": in_target_demos,
+    "pick_location_not_in_target_screwdriver": ood_target_demos
 }
 
-with open('../droid_filter_keys/droid_filter_dict_pick_location_in_and_ood_target.pkl', 'wb') as f:
+with open('../droid_filter_keys/droid_filter_dict_pick_location_in_and_ood_target_screwdriver.pkl', 'wb') as f:
     pickle.dump(hdf_filter_dict, f)
 
 # The small spatial range is within 0.75 std dev of the mean
