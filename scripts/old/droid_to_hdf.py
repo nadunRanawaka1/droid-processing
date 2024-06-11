@@ -49,7 +49,7 @@ def resize_rgb_image(image, output_shape=RESIZE_SHAPE):
     return resized_image
 
 def droid_to_hdf5(droid_path, dst_hdf5_path):
-    droid_ds = tfds.load("droid", data_dir=droid_path, split="train")
+    droid_ds = tfds.load("droid_100", data_dir=droid_path, split="train")
     counter = 0
     start = time.time()
     with h5py.File(f"{dst_hdf5_path}/droid.hdf5", "w") as f_dst:
@@ -195,12 +195,14 @@ if __name__ == "__main__":
 
     parser.add_argument("--dataset_dir",
                         type=str,
-                        required=True,
+                        default="/media/nadun/Data/Droid",
+                        required=False,
                         help="path to directory where droid dataset is saved")
 
     parser.add_argument("--save_dir",
                         type=str,
-                        required=True,
+                        required=False,
+                        default="/media/nadun/Data/Droid/droid_hdf5/testing",
                         help="directory to save the droid dataset in hdf5 format")
 
     args = parser.parse_args()
