@@ -79,7 +79,7 @@ hdf_filter_dict = {
     "pick_location_not_in_target_screwdriver": ood_target_demos
 }
 
-with open('../droid_filter_keys/droid_filter_dict_pick_location_in_and_ood_target_screwdriver.pkl', 'wb') as f:
+with open('../droid_filter_keys/completed/droid_filter_dict_pick_location_in_and_ood_target_screwdriver.pkl', 'wb') as f:
     pickle.dump(hdf_filter_dict, f)
 
 # The small spatial range is within 0.75 std dev of the mean
