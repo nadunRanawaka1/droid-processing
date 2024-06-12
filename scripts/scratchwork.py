@@ -4,7 +4,7 @@ import h5py
 import random
 import re
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/place_bowl_on_plate/place_bowl_on_plate_new_config_demo.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5"
 
 # demo_file = nx.nxload(demo_fn)
 # print(demo_file.tree)
@@ -16,13 +16,16 @@ demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/place_bowl_on_plat
 demo_file = h5py.File(demo_fn, 'r')
 
 
-demos = demo_file['data']
+# demos = demo_file['data']
 
 
 
 # ### FOR SELECTING CAMERAS
 
-# masks = demo_file['mask']
+masks = demo_file['mask']
+
+for mask in masks:
+    print(masks[mask])
 
 # demos_not_in_spatial = masks['pick_location_not_in_target'][:].tolist()
 # demos_in_spatial = masks['pick_location_in_target'][:].tolist()
@@ -81,10 +84,10 @@ demos = demo_file['data']
 #
 #
 #
-demo_list = []
+# demo_list = []
 
-for demo in demos:
-    demo_list.append(demo)
+# for demo in demos:
+#     demo_list.append(demo)
 # #
 # random.shuffle(demo_list)
 # #
@@ -102,15 +105,15 @@ for demo in demos:
 # # # print(selected_agent_view_dict)
 # #
 
-selected_agent_view_dict = {
-    "agentview_image":demo_list
-}
-demo_file.close()
+# selected_agent_view_dict = {
+#     "agentview_image":demo_list
+# }
+# demo_file.close()
 
-print(selected_agent_view_dict)
-#
-with open("/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/agentview_as_agentview_new_target_dataset.pkl", "wb") as f:
-    pickle.dump(selected_agent_view_dict, f)
+# print(selected_agent_view_dict)
+# #
+# with open("/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/agentview_as_agentview_new_target_dataset.pkl", "wb") as f:
+#     pickle.dump(selected_agent_view_dict, f)
 
 
 
