@@ -133,6 +133,7 @@ def create_metadata(demo_path, save_path=None):
     place_time_per_demo = []
 
     success = []
+    filepaths, recording_folderpaths = [], []
 
     num_demos = 0
     demo_nums = []
@@ -147,10 +148,17 @@ def create_metadata(demo_path, save_path=None):
         num_demos += 1
         demo = demos[demo]
 
+
         ### First check if the demo is successful
         filepath = demo.attrs["filepath"]
         is_successful = re.match(SUCCESS_REGEX, filepath) is not None
         success.append(is_successful)
+
+        ### Copy over some metadata
+        filepaths.append(filepath)
+        rec_folder = demo.attrs["recording_folderpath"]
+        recording_folderpaths.append(rec_folder)
+
 
         ### Add language instructions
         lang_1_list.append(demo.attrs["language_instruction_1"])
@@ -200,6 +208,8 @@ def create_metadata(demo_path, save_path=None):
     ### Make a dataframe with all the info
 
     data = {"Demo": demo_nums,
+            "filepath": filepaths,
+            "recording_folder_path": recording_folderpaths,
             "success": success,
             "language_instruction_1": lang_1_list,
             "language_instruction_2": lang_2_list,
@@ -237,6 +247,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     demo_fn = args.droid_path
-    save_path = f"{args.save_dir}/droid_metadata.pkl"
+    save_path = f"{args.save_dir}/droid_100_metadata.pkl"
     create_metadata(demo_fn, save_path=save_path)
 

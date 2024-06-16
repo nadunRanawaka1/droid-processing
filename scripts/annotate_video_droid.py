@@ -13,7 +13,7 @@ print(demo_file.tree)
 
 demo_file = h5py.File(demo_fn)
 
-metadata_path = "/media/nadun/Data/Droid/droid_hdf5/droid_100_metadata.pkl"
+metadata_path = "/droid_hdf5/metadata/droid_100_metadata.pkl"
 df = pd.read_pickle(metadata_path)
 
 # First filter demos with only 1 gripper open/gripper close
