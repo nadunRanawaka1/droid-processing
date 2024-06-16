@@ -247,6 +247,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     demo_fn = args.droid_path
-    save_path = f"{args.save_dir}/droid_100_metadata.pkl"
+    save_path = f"{args.save_dir}/droid_metadata.pkl"
     create_metadata(demo_fn, save_path=save_path)
 
