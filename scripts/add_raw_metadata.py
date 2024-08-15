@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import json
 
-metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
+metadata_fp = "/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/droid_metadata.pkl"
 
 df = pd.read_pickle(metadata_fp)
 
@@ -18,7 +18,7 @@ df["wrist_cam_extrinsics"] = [[0.0 for i in range(7)] for j in range(len(df))]
 df["ext1_cam_extrinsics"] = [[0.0 for i in range(7)] for j in range(len(df))]
 df["ext2_cam_extrinsics"] = [[0.0 for i in range(7)] for j in range(len(df))]
 
-metadata_file_dir = "/media/nadun/Data/Droid/droid_hdf5/metadata/raw_metadata/raw_metadata_files"
+metadata_file_dir = "/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/raw_metadata/raw_metadata_files"
 
 raw_metadata_file_names = os.listdir(metadata_file_dir)
 
@@ -49,7 +49,5 @@ for file in raw_metadata_file_names:
         df.at[index, "ext2_cam_extrinsics"] = metadata["ext2_cam_extrinsics"]
 
 
-df.to_pickle("New_Droid_metadata.pkl")
+df.to_pickle("/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/new_droid_metadata.pkl")
 
-
-print()
