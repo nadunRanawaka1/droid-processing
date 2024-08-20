@@ -17,4 +17,4 @@ conda activate droid
 
 cd /coc/flash7/nkra3/Droid/droid-processing
 
-srun -u python -u scripts/create_metadata_from_hdf5.py --droid_path="/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5" --save_dir="/nethome/nkra3/flash7/Droid/droid_hdf5"
+srun -u python -u scripts/create_metadata_from_hdf5.py --droid_path="/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5" --save_dir="/nethome/nkra3/flash7/Droid/droid_hdf5/metadata"

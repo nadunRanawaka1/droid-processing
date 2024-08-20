@@ -32,10 +32,9 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
             for camera in agentview_dict:
                 selected_demos = agentview_dict[camera]
                 
-
                 for demo in selected_demos:
 
-                    if (num_written % 20) == 0:
+                    if (num_written % 10) == 0:
                         print(f"Processed demo: {num_written}. Time elapsed: {time.time() - start}")
 
 

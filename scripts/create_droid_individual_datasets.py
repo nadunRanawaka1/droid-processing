@@ -9,7 +9,7 @@ processed_dataset_folder = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/
 
 
 
-fp = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/lang_1_to_demos.pkl"
+fp = "/nethome/nkra3/flash7/Droid/droid-processing/droid_filter_keys/cube_demos_list.pkl"
 
 f = open(fp, "rb")
 
