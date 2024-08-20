@@ -29,6 +29,10 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
 
             processed_dataset_grp = processed_dataset.create_group("data")
 
+            #copy over env args
+            processed_dataset_grp.attrs['env_args'] = src_dataset_grp.attrs['env_args']
+            total = 0
+
             for camera in agentview_dict:
                 selected_demos = agentview_dict[camera]
                 
@@ -46,6 +50,9 @@ def select_agent_view_in_dict(agentview_dict_fn, dataset_path, processed_dataset
                     # processed_dataset_grp[f"demo_{num_written}"].attrs["Original_Droid_Demo_Number"] = demo
 
                     num_written += 1
+                    total += src_dataset_grp[demo].attrs['num_samples']
+                    
+            processed_dataset_grp.attrs['total'] = total
 
 
 if __name__ == "__main__":

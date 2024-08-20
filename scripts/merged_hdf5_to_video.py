@@ -4,11 +4,11 @@ import os
 import h5py
 import nexusformat.nexus as nx
 
-demo_fn = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/single_task_datasets/Put_the_marker_in_the_cup_demos.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_bowl_in_box/cam_pose_datasets/left_image_shoulderview_left_as_agentview.hdf5"
 # video_folder = "/media/nadun/Data/Droid/droid_hdf5" #Destination
 
-CAMERA_NAME = "shoulderview_left_image"
-OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos"
+CAMERA_NAME = "selected_agentview_image"
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos/campose"
 
 video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
@@ -33,7 +33,7 @@ for j, demo in enumerate(demos):
             big_video_list.append(cv2.cvtColor(view[i], cv2.COLOR_RGB2BGR))
             
 
-video_fn = os.path.join(video_folder,f"put_marker_in_cup_{CAMERA_NAME}_all_demos.mp4")
+video_fn = os.path.join(video_folder,f"left_image_shouldview_left_dataset_all_demos.mp4")
 width = big_video_list[1].shape[0]
 height = big_video_list[1].shape[1]
 
