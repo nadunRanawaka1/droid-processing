@@ -6,6 +6,7 @@ import re
 import pandas as pd
 
 # metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
+metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/new_droid_metadata.pkl"
 
 # df = pd.read_pickle(metadata_fp)
 
@@ -26,6 +27,7 @@ import pandas as pd
 #     pickle.dump(cube_demos, f)
 
 # print()
+print()
 
 ### RANDOM SCRATCHWORK
 
