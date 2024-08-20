@@ -4,11 +4,11 @@ import os
 import h5py
 import nexusformat.nexus as nx
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_bowl_in_box/cam_pose_datasets/left_image_shoulderview_left_as_agentview.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/put_screwdriver_in_drawer_large_spatial_20_demo.hdf5"
 # video_folder = "/media/nadun/Data/Droid/droid_hdf5" #Destination
 
-CAMERA_NAME = "selected_agentview_image"
-OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos/campose"
+CAMERA_NAME = "shoulderview_right_image"
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos/put_screw_driver_in_drawer"
 
 video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
@@ -17,7 +17,7 @@ if not os.path.exists(video_folder):
 demo_file = nx.nxload(demo_fn)
 print(demo_file.tree)
 
-demo_file = h5py.File(demo_fn)
+demo_file = h5py.File(demo_fn, 'r')
 
 demos = demo_file['data']
 
@@ -33,7 +33,7 @@ for j, demo in enumerate(demos):
             big_video_list.append(cv2.cvtColor(view[i], cv2.COLOR_RGB2BGR))
             
 
-video_fn = os.path.join(video_folder,f"left_image_shouldview_left_dataset_all_demos.mp4")
+video_fn = os.path.join(video_folder,f"shoulderview_right_large_spatial_all_demos.mp4")
 width = big_video_list[1].shape[0]
 height = big_video_list[1].shape[1]
 

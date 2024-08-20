@@ -1,8 +1,9 @@
 import os
 import pandas as pd
 import json
+import time
 
-metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
+metadata_fp = "/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/droid_metadata.pkl"
 
 df = pd.read_pickle(metadata_fp)
 
@@ -18,15 +19,17 @@ df["wrist_cam_extrinsics"] = [[] for j in range(len(df))]
 df["ext1_cam_extrinsics"] = [[] for j in range(len(df))]
 df["ext2_cam_extrinsics"] = [[] for j in range(len(df))]
 
-metadata_file_dir = "/media/nadun/Data/Droid/droid_hdf5/metadata/raw_metadata/raw_metadata_files"
+metadata_file_dir = "/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/raw_metadata/raw_metadata_files"
 
 raw_metadata_file_names = os.listdir(metadata_file_dir)
 
 counter = 0
+start = time.time()
 for file in raw_metadata_file_names:
     fp = os.path.join(metadata_file_dir, file)
     if (counter % 100 == 0):
-        print(f"Processed demo: {counter}")
+        print(f"Processed demo: {counter}. Time taken = {time.time() - start}")
+        start = time.time()
     counter += 1
     with open(fp,) as f:
         metadata = json.load(f)
@@ -59,6 +62,6 @@ for file in raw_metadata_file_names:
         df.at[index, "ext2_cam_extrinsics"] = metadata["ext2_cam_extrinsics"]
 
 
-df.to_pickle("new_droid_metadata_v3.pkl")
+df.to_pickle("/nethome/nkra3/flash7/Droid/droid_hdf5/metadata/raw_metadata/all_droid_metadata.pkl")
 
 

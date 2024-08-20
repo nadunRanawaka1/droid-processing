@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=add_droid_metadata
-#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_processing/add_droid_metadata.out
-#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_processing/add_droid_metadata.err
+#SBATCH --job-name=add_raw_droid_metadata
+#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_processing/add_raw_droid_metadata.out
+#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_processing/add_raw_droid_metadata.err
 #SBATCH --partition=rl2-lab
 #SBATCH --time 96:00:00
 #SBATCH --nodes=1
