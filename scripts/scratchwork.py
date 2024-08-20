@@ -6,9 +6,9 @@ import re
 import pandas as pd
 
 # metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
-metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/new_droid_metadata.pkl"
+metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/all_droid_metadata.pkl"
 
-# df = pd.read_pickle(metadata_fp)
+df = pd.read_pickle(metadata_fp)
 
 # # unique_lang_1_counts = df["language_instruction_1"].value_counts()[1:] # index from 1 to remove empty string
 # # unique_lang_2_counts = df["language_instruction_2"].value_counts()[1:]
@@ -31,6 +31,4 @@ print()
 
 ### RANDOM SCRATCHWORK
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_bowl_in_box/obj_tex_datasets/green_only.hdf5"
-demo_file = nx.nxload(demo_fn)
-print(demo_file.tree)
+
