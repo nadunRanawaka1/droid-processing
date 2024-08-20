@@ -49,7 +49,7 @@ for file in raw_metadata_file_names:
         df.at[index, "ext2_cam_extrinsics"] = metadata["ext2_cam_extrinsics"]
 
 
-df.to_pickle("New_Droid_metadata.pkl")
+df.to_pickle("New_Droid_metadata_v2.pkl")
 
 
 print()
