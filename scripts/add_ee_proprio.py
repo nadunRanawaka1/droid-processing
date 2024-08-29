@@ -53,8 +53,6 @@ def add_ee_proprio(droid_path):
 
     droid.close()
 
-    droid_file = nx.nxload(droid_path)
-    print(droid_file.tree)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
