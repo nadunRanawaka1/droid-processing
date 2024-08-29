@@ -38,7 +38,7 @@ def droid_to_real_format(droid_path):
         gripper_action_copy[gripper_action_copy < 0.5] = -1.0
         gripper_action_copy[gripper_action_copy >= 0.5] = 1.0
         absolute_action = np.concatenate((pos_actions, axis_angle_actions, gripper_action_copy), axis=1)
-        del droid_data[f'{demo_name}/absolute_actions']
+        # del droid_data[f'{demo_name}/absolute_actions']
         droid_data.create_dataset(f'{demo_name}/absolute_actions', data=absolute_action)
 
     droid.close()

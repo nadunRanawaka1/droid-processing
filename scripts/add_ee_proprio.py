@@ -28,7 +28,6 @@ def add_ee_proprio(droid_path):
         processed += 1
         demo = droid_data[demo_name]
 
-
         # Transform cartesian pos obs to axis angle
         ee_pose = np.copy(demo['obs/cartesian_position'][:])
         ee_pos = ee_pose[:, 0:3]
@@ -44,15 +43,12 @@ def add_ee_proprio(droid_path):
         ee_quat = np.array(ee_quat_list)
         ee_pose = np.concatenate([ee_pos, ee_quat], axis=1)
 
-
         demo.create_dataset("obs/eef_pos", data=ee_pos)
         demo.create_dataset("obs/eef_quat", data=ee_quat)
         demo.create_dataset("obs/eef_axis_angle", data=ee_axis_angle)
         demo.create_dataset("obs/eef_pose", data=ee_pose)
 
-
     droid.close()
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
