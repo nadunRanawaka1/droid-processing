@@ -4,7 +4,8 @@ import os
 import h5py
 import nexusformat.nexus as nx
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/all_colors.hdf5"
+
+demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/red+blue+yellow.hdf5"
 # video_folder = "/media/nadun/Data/Droid/droid_hdf5" #Destination
 
 # CAMERA_NAME = "selected_agentview_image"
@@ -34,7 +35,7 @@ for j, demo in enumerate(demos):
             big_video_list.append(cv2.cvtColor(view[i], cv2.COLOR_RGB2BGR))
             
 
-video_fn = os.path.join(video_folder,f"all_colors.mp4")
+video_fn = os.path.join(video_folder,f"RBY.mp4")
 width = big_video_list[1].shape[0]
 height = big_video_list[1].shape[1]
 

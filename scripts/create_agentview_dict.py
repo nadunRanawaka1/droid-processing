@@ -5,7 +5,7 @@ import random
 from copy import deepcopy
 import os
 
-demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/cam_pose_target_demo.hdf5"
+demo_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/original_datasets/cam_pose_demo.hdf5"
 
 # demo_file = nx.nxload(demo_fn)
 # print(demo_file.tree)
@@ -39,14 +39,14 @@ left_image_agentview = [d for d in demo_list if d not in right_image_agentview]
 
 
 left_right_image_dict = {"right_image": deepcopy(right_image_agentview),
-                        "left_image": deepcopy(left_image_agentview)} # DONE
+                        "left_image": deepcopy(left_image_agentview)} 
 
 # SELECTING RIGHT VIEW + SHOULDERVIEW LEFT AS AGENTVIEW
 right_image_agentview = random.sample(demo_list, N//2)
 shoulderview_left_image_agentview = [d for d in demo_list if d not in right_image_agentview]
 
 right_image_shoulderview_left_image_dict = {"right_image": deepcopy(right_image_agentview), 
-                                        "shoulderview_left_image": deepcopy(shoulderview_left_image_agentview)} # DONE
+                                        "shoulderview_left_image": deepcopy(shoulderview_left_image_agentview)}
 
 # SELECTING LEFT AND RIGHT VIEW + ALL SHOULDERVIEWS
 shuffled = deepcopy(demo_list)
@@ -69,21 +69,25 @@ all_views_agentview_dict = {"right_image": deepcopy(right_image_agentview),
 } # DONE
 
 
-# BEST DATASET, SELECTING RIGHTVIEW AND SHOULDERVIEW RIGHT AS AGENTVIEW
+# GOOD DATASET, SELECTING RIGHTVIEW AND SHOULDERVIEW RIGHT AS AGENTVIEW
 
 right_image_agentview = random.sample(demo_list, N//2)
 shoulderview_right_image_agentview = [d for d in demo_list if d not in right_image_agentview]
 
 right_shoulderview_right_dict = {"right_image": deepcopy(right_image_agentview),
                                 "shoulderview_right_image": deepcopy(shoulderview_right_image_agentview)
-                                } #DONE
+                                } 
+
+# BEST DATASET, SELECTING SHOUDLERVIEW RIGHT AS AGENTVIEW
+
+shoulderview_right_dict =  {"shoulderview_right_image": deepcopy(demo_list)}
 
 # Target DATASET, SELECT 10 DEMOS AND SET AGENTVIEW
 # shoulderview_right_image_agentview = random.sample(demo_list, 10)
 
-target_dataset_dict = {"shoulderview_right_image": deepcopy(demo_list)} # DONE
+# target_dataset_dict = {"shoulderview_right_image": deepcopy(demo_list)} 
 
-print(target_dataset_dict)
+# print(target_dataset_dict)
 
 # ===================================================================================================================== #
 
@@ -105,8 +109,11 @@ save_folder = '/nethome/nkra3/flash7/Droid/droid-processing/agentview_dicts/scre
 # with open(os.path.join(save_folder, "right_shoulderview_right_dict.pkl"), 'wb') as f:
 #     pickle.dump(right_shoulderview_right_dict, f)
 
-with open(os.path.join(save_folder, "target_dataset_dict.pkl"), 'wb') as f:
-    pickle.dump(target_dataset_dict, f)
+# with open(os.path.join(save_folder, "target_dataset_dict.pkl"), 'wb') as f:
+#     pickle.dump(target_dataset_dict, f)
 
 # with open(os.path.join(save_folder, "left_image_shoulderview_left_dict.pkl"), 'wb') as f:
 #     pickle.dump(left_image_shoulderview_left_dict, f)
+
+with open(os.path.join(save_folder, "shoulderview_right_dict.pkl"), 'wb') as f:
+    pickle.dump(shoulderview_right_dict, f)
