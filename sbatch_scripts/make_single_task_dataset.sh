@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=make_single_task_dataset
-#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_processing/make_single_task_dataset.out
-#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_processing/make_single_task_dataset.err
+#SBATCH --job-name=make_single_task_dataset_kitchen
+#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_processing/make_single_task_dataset_kitchen.out
+#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_processing/make_single_task_dataset_kitchen.err
 #SBATCH --partition=rl2-lab
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
