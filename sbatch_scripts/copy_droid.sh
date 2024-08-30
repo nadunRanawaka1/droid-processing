@@ -18,4 +18,4 @@ conda deactivate
 conda activate droid
 
 cd /coc/flash7/nkra3/Droid/droid_hdf5
-rsync -ah droid.hdf5 original_datasets/
+rsync -ah -P /nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5 original_datasets/

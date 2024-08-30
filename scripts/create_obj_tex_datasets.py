@@ -92,44 +92,131 @@ green_grp, green_demo_list = get_grp_and_demo_list(green_fn)
 
 ### Create red + blue + yellow
 
-fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/red+blue+yellow.hdf5"
-print("Creating red and blue and yellow dataset")
+# fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/red+blue+yellow.hdf5"
+# print("Creating red and blue and yellow dataset")
 
-with h5py.File(fn, 'w') as dataset:
-    dataset_grp = dataset.create_group('data')
-    dataset_grp.attrs['env_args'] = red_grp.attrs['env_args']
+# with h5py.File(fn, 'w') as dataset:
+#     dataset_grp = dataset.create_group('data')
+#     dataset_grp.attrs['env_args'] = red_grp.attrs['env_args']
 
-    total = 0
-    num_written = 0
+#     total = 0
+#     num_written = 0
 
-    for i in range(len(yellow_demo_list)):
-        print(f"Processing batch: {i}")
-        if num_written > COTRAINING_DEMOS:
-            break
+#     for i in range(len(yellow_demo_list)):
+#         print(f"Processing batch: {i}")
+#         if num_written > COTRAINING_DEMOS:
+#             break
 
-        red_demo = red_demo_list[i]
-        blue_demo = blue_demo_list[i]
-        yellow_demo = yellow_demo_list[i]
+#         red_demo = red_demo_list[i]
+#         blue_demo = blue_demo_list[i]
+#         yellow_demo = yellow_demo_list[i]
 
-        dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
-        num_written += 1
-        total += red_grp[red_demo].attrs['num_samples']
+#         dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += red_grp[red_demo].attrs['num_samples']
 
-        dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
-        num_written += 1
-        total += blue_grp[blue_demo].attrs['num_samples']
+#         dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += blue_grp[blue_demo].attrs['num_samples']
 
-        dataset_grp.copy(yellow_grp[yellow_demo], f"demo_{num_written}")
-        num_written += 1
-        total += yellow_grp[yellow_demo].attrs['num_samples']
+#         dataset_grp.copy(yellow_grp[yellow_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += yellow_grp[yellow_demo].attrs['num_samples']
 
-    dataset_grp.attrs['total'] = total
+#     dataset_grp.attrs['total'] = total
 
 
 ### Create red + blue + yellow + green
 
-fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/red+blue+yellow+green.hdf5"
-print("Creating red and blue and yellow and green dataset")
+# fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/red+blue+yellow+green.hdf5"
+# print("Creating red and blue and yellow and green dataset")
+
+# with h5py.File(fn, 'w') as dataset: 
+#     dataset_grp = dataset.create_group('data')
+#     dataset_grp.attrs['env_args'] = red_grp.attrs['env_args']
+
+#     total = 0
+#     num_written = 0
+
+#     for i in range(len(green_demo_list)):
+#         print(f"Processing batch: {i}")
+#         if num_written > COTRAINING_DEMOS:
+#             break
+
+#         red_demo = red_demo_list[i]
+#         blue_demo = blue_demo_list[i]
+#         yellow_demo = yellow_demo_list[i]
+#         green_demo = green_demo_list[i]
+
+#         dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += red_grp[red_demo].attrs['num_samples']
+
+#         dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += blue_grp[blue_demo].attrs['num_samples']
+
+#         dataset_grp.copy(yellow_grp[yellow_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += yellow_grp[yellow_demo].attrs['num_samples']
+
+#         dataset_grp.copy(green_grp[green_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += green_grp[green_demo].attrs['num_samples']
+
+#     dataset_grp.attrs['total'] = total
+
+
+### Create all colors
+
+# all_colors_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/all_colors_new.hdf5"
+# print("Creating all colors dataset")
+# with h5py.File(all_colors_fn, 'w') as dataset:
+#     dataset_grp = dataset.create_group('data')
+#     dataset_grp.attrs['env_args'] = red_grp.attrs['env_args']
+
+#     total = 0
+#     num_written = 0
+#     for i in range(len(green_demo_list)):
+#         if num_written > COTRAINING_DEMOS:
+#             break
+#         print(f"Processing batch: {i}")
+
+#         red_demo = red_demo_list[i]
+#         blue_demo = blue_demo_list[i]
+#         pink_demo = pink_demo_list[i]
+#         yellow_demo = yellow_demo_list[i]
+#         green_demo = green_demo_list[i]
+
+#         dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += red_grp[red_demo].attrs['num_samples']
+
+#         dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += blue_grp[blue_demo].attrs['num_samples']
+
+#         dataset_grp.copy(pink_grp[pink_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += blue_grp[blue_demo].attrs['num_samples']
+
+#         dataset_grp.copy(yellow_grp[yellow_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += yellow_grp[yellow_demo].attrs['num_samples']
+
+#         dataset_grp.copy(green_grp[green_demo], f"demo_{num_written}")
+#         num_written += 1
+#         total += green_grp[green_demo].attrs['num_samples']
+
+#     dataset_grp.attrs['total'] = total
+
+
+
+
+### Create blue + yellow + green
+
+fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/blue+yellow+green.hdf5"
+print("Creating blue and yellow and green dataset")
 
 with h5py.File(fn, 'w') as dataset: 
     dataset_grp = dataset.create_group('data')
@@ -143,14 +230,10 @@ with h5py.File(fn, 'w') as dataset:
         if num_written > COTRAINING_DEMOS:
             break
 
-        red_demo = red_demo_list[i]
         blue_demo = blue_demo_list[i]
         yellow_demo = yellow_demo_list[i]
         green_demo = green_demo_list[i]
 
-        dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
-        num_written += 1
-        total += red_grp[red_demo].attrs['num_samples']
 
         dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
         num_written += 1
@@ -164,39 +247,16 @@ with h5py.File(fn, 'w') as dataset:
         num_written += 1
         total += green_grp[green_demo].attrs['num_samples']
 
-    dataset_grp.attrs['total'] = total
+    for j in range(26, 100):
 
-
-### Create all colors
-
-all_colors_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/obj_tex_datasets/all_colors_new.hdf5"
-print("Creating all colors dataset")
-with h5py.File(all_colors_fn, 'w') as dataset:
-    dataset_grp = dataset.create_group('data')
-    dataset_grp.attrs['env_args'] = red_grp.attrs['env_args']
-
-    total = 0
-    num_written = 0
-    for i in range(len(green_demo_list)):
+        print(f"Processing batch: {j}")
         if num_written > COTRAINING_DEMOS:
             break
-        print(f"Processing batch: {i}")
 
-        red_demo = red_demo_list[i]
-        blue_demo = blue_demo_list[i]
-        pink_demo = pink_demo_list[i]
-        yellow_demo = yellow_demo_list[i]
-        green_demo = green_demo_list[i]
-
-        dataset_grp.copy(red_grp[red_demo], f"demo_{num_written}")
-        num_written += 1
-        total += red_grp[red_demo].attrs['num_samples']
+        blue_demo = blue_demo_list[j]
+        yellow_demo = yellow_demo_list[j]
 
         dataset_grp.copy(blue_grp[blue_demo], f"demo_{num_written}")
-        num_written += 1
-        total += blue_grp[blue_demo].attrs['num_samples']
-
-        dataset_grp.copy(pink_grp[pink_demo], f"demo_{num_written}")
         num_written += 1
         total += blue_grp[blue_demo].attrs['num_samples']
 
@@ -204,8 +264,6 @@ with h5py.File(all_colors_fn, 'w') as dataset:
         num_written += 1
         total += yellow_grp[yellow_demo].attrs['num_samples']
 
-        dataset_grp.copy(green_grp[green_demo], f"demo_{num_written}")
-        num_written += 1
-        total += green_grp[green_demo].attrs['num_samples']
 
     dataset_grp.attrs['total'] = total
+
