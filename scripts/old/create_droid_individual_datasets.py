@@ -7,16 +7,12 @@ import os
 droid_path = "/nethome/nkra3/flash7/Droid/droid_hdf5/droid.hdf5"
 processed_dataset_folder = "/nethome/nkra3/flash7/Droid/droid_hdf5/exp_datasets/single_task_datasets"
 
-
 fp = "/media/nadun/Data/Droid/metadata/clustered_demos_with_kitchens.pkl"
-
 f = open(fp, "rb")
-
 lang_to_demos = pickle.load(f)
 
 start = time.time()
 tasks = 0
-
 
 with h5py.File(droid_path, "r") as src_dataset:
     src_dataset_grp = src_dataset['data']
