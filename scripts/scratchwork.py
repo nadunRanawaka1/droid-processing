@@ -31,19 +31,9 @@ print()
 
 ### RANDOM SCRATCHWORK
 
-demo_fn = "/media/nadun/Data/Droid/droid_hdf5/droid_100.hdf5"
+with open("/media/nadun/Data/Droid/metadata/clustered_demos_with_kitchens.pkl", "rb") as f:
+    clustered_demos = pickle.load(f)
 
-demo_file = nx.nxload(demo_fn)
-print(demo_file.tree)
-
-demo_file = h5py.File(demo_fn)
-grp = demo_file['data']
-demo = grp['demo_5']
-
-absolute_actions = demo['absolute_actions'][:]
-eef_axis_angle = demo['obs/eef_axis_angle'][:]
-
-eef_pos = demo['obs/eef_pos'][:]
 
 print()
 
