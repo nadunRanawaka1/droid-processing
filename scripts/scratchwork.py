@@ -31,8 +31,11 @@ print()
 
 ### RANDOM SCRATCHWORK
 
-with open("/media/nadun/Data/Droid/metadata/clustered_demos_with_kitchens.pkl", "rb") as f:
-    clustered_demos = pickle.load(f)
+with open("/media/nadun/Data/Droid/metadata/droid_metadata/can_demos_with_colors.pkl", "rb") as f:
+    metadata = pickle.load(f)
+
+
+
 
 
 print()
