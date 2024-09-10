@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=droid_add_ee_proprio
-#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_add_ee_proprio.out
-#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_add_ee_proprio.err
+#SBATCH --job-name=droid_add_shoulderview_labels
+#SBATCH --output=/coc/flash7/nkra3/logs/sbatch_out/droid_processing/droid_add_shoulderview_labels.out
+#SBATCH --error=/coc/flash7/nkra3/logs/sbatch_err/droid_processing/droid_add_shoulderview_labels.err
 #SBATCH --partition=rl2-lab
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -16,4 +16,4 @@ conda deactivate
 conda activate droid-processing
 
 cd /coc/flash7/nkra3/Droid/droid-processing
-srun -u python -u scripts/add_ee_proprio.py --droid_path="/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
+srun -u python -u scripts/add_shoulderview_labels_to_droid.py 

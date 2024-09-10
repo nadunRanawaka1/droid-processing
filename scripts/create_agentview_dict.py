@@ -33,6 +33,7 @@ left_image_shoulderview_left_dict = {"shoulderview_left_image": deepcopy(shoulde
                                     "left_image": deepcopy(left_image_agentview)
                                     }
 
+
 # SELECTING RIGHT + LEFT AS AGENTVIEW
 right_image_agentview = random.sample(demo_list, N//2)
 left_image_agentview = [d for d in demo_list if d not in right_image_agentview]

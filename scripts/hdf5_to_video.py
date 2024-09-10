@@ -5,11 +5,11 @@ import h5py
 import nexusformat.nexus as nx
 
 
-demo_fn = <PATH TO .hdf5 FILE>
+demo_fn = "/coc/flash8/wshin49/droid/hdf5/can/kitchen/can_green_demos.hdf5"
 
-CAMERA_NAME = "shoulderview_left_image" # can change this
-OUTPUT_FOLDER_NAME = <WHERE TO SAVE VIDEOS>
-VIDEO_NAME = <WHAT TO CALL THE VIDEO>
+CAMERA_NAME = "shoulderview_right_image" # can change this
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos/retriever/can"
+VIDEO_NAME = "green_right_shoulderview"
 
 video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
