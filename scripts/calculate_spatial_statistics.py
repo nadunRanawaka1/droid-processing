@@ -62,6 +62,11 @@ def stats_from_metadata(metadata_path, filter_z=False):
     return stats
 
 def stats_from_dataset(demo_path):
+    """
+    This function can detect the pick and place location statistics for a demo dataset
+    :param demo_path: path to .hdf5 dataset
+    :return: spatial statistics for the demos in the dataset
+    """
     demo_file = h5py.File(demo_path)
     demos = demo_file["data"]
 
