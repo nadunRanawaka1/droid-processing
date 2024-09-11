@@ -36,8 +36,6 @@ with open("/media/nadun/Data/Droid/metadata/droid_metadata/can_demos_with_colors
 
 
 
-
-
 print()
 
 
