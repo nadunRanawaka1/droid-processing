@@ -31,7 +31,9 @@ print()
 
 ### RANDOM SCRATCHWORK
 
-with open("/media/nadun/Data/Droid/metadata/droid_metadata/can_demos_with_colors.pkl", "rb") as f:
+fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_colors.pkl"
+
+with open(fp, "rb") as f:
     metadata = pickle.load(f)
 
 
