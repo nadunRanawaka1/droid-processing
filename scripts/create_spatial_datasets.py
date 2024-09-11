@@ -1,9 +1,9 @@
 import h5py
 import random
 
-small_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/cam_pose_demo.hdf5"
-med_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/med_spatial_demo.hdf5"
-large_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/large_spatial_demo.hdf5"
+small_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/green_can_100_demos_demo.hdf5"
+med_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/green_can_med_spat_30_demos_demo.hdf5"
+large_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/green_can_large_spat_30_demos_demo.hdf5"
 
 small_file = h5py.File(small_fn, 'r')
 med_file = h5py.File(med_fn, 'r')
@@ -29,9 +29,9 @@ random.shuffle(small_demo_list)
 random.shuffle(med_demo_list)
 random.shuffle(large_demo_list)
 
-### Create the actual medium demo file (that has 75 demos from the small and 25 from the med spatial)
+### Create the actual medium demo file (that has 70 demos from the small and 30 from the med spatial)
 
-med_spatial_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/spatial_datasets/med_spat.hdf5"
+med_spatial_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_spat_datasets/med_spat.hdf5"
 
 with h5py.File(med_spatial_fn, 'w') as med_spatial_dataset:
     dataset_grp = med_spatial_dataset.create_group('data')
@@ -61,9 +61,9 @@ with h5py.File(med_spatial_fn, 'w') as med_spatial_dataset:
     dataset_grp.attrs['total'] = total
 
 
-### Create the actual large demo file (50 from small, 25 from med and 25 from large)
+### Create the actual large demo file (40 from small, 30 from med and 30 from large)
 
-large_spatial_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/spatial_datasets/large_spat.hdf5"
+large_spatial_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_spat_datasets/large_spat.hdf5"
 
 with h5py.File(large_spatial_fn, 'w') as large_spatial_dataset:
     dataset_grp = large_spatial_dataset.create_group('data')
@@ -106,7 +106,9 @@ with h5py.File(large_spatial_fn, 'w') as large_spatial_dataset:
 
 # Next create the target dataset using 10 large spatial demos
 
-target_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/spatial_datasets/target.hdf5"
+target_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_spat_datasets/10_target.hdf5"
+print("CREATING 10 TARGET")
+print("====================================================================")
 
 with h5py.File(target_fn, 'w') as target_dataset:
     dataset_grp = target_dataset.create_group('data')
@@ -125,3 +127,56 @@ with h5py.File(target_fn, 'w') as target_dataset:
         total += large_grp[demo].attrs['num_samples']
         
     dataset_grp.attrs['total'] = total
+
+### Create 20 target dataset
+
+target_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_spat_datasets/20_target.hdf5"
+
+print("CREATING 20 TARGET")
+print("====================================================================")
+
+with h5py.File(target_fn, 'w') as target_dataset:
+    dataset_grp = target_dataset.create_group('data')
+
+    dataset_grp.attrs['env_args'] = small_grp.attrs['env_args']
+
+    total = 0
+    num_written = 0
+
+    for i in range(20):
+        print(f"Copying demo {i} of target")
+        demo = large_demo_list[i]
+        dataset_grp.copy(large_grp[demo], f"demo_{num_written}")
+
+        num_written += 1
+        total += large_grp[demo].attrs['num_samples']
+        
+    dataset_grp.attrs['total'] = total
+
+### Create 30 target dataset
+
+target_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_spat_datasets/30_target.hdf5"
+
+print("CREATING 30 TARGET")
+print("====================================================================")
+
+with h5py.File(target_fn, 'w') as target_dataset:
+    dataset_grp = target_dataset.create_group('data')
+
+    dataset_grp.attrs['env_args'] = small_grp.attrs['env_args']
+
+    total = 0
+    num_written = 0
+
+    for i in range(30):
+        print(f"Copying demo {i} of target")
+        demo = large_demo_list[i]
+        dataset_grp.copy(large_grp[demo], f"demo_{num_written}")
+
+        num_written += 1
+        total += large_grp[demo].attrs['num_samples']
+        
+    dataset_grp.attrs['total'] = total
+
+
+print("COMPLETED CREATING SPATIAL DATASETS")

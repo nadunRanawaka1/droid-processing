@@ -5,11 +5,11 @@ import h5py
 import nexusformat.nexus as nx
 
 
-demo_fn = "/coc/flash8/wshin49/droid/hdf5/can/kitchen/can_green_demos.hdf5"
+demo_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/obj_tex_datasets/green+red+purple.hdf5"
 
 CAMERA_NAME = "shoulderview_right_image" # can change this
-OUTPUT_FOLDER_NAME = "/nethome/nkra3/flash7/Droid/droid_hdf5/videos/retriever/can"
-VIDEO_NAME = "green_right_shoulderview"
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/robomimic-v2/videos/collector/can/dataset_videos"
+VIDEO_NAME = "green_red_purple_shoulderview_right"
 
 video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
