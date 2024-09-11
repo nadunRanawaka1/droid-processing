@@ -1,5 +1,4 @@
 import pickle
-from turtledemo.forest import start
 
 import pandas as pd
 import numpy as np
@@ -15,7 +14,7 @@ SHOULDERVIEW_LEFT_SPATIAL_MEANS = np.array([-0.10, 0.35, 0.40])
 SHOULDERVIEW_RIGHT_SPATIAL_MEANS = np.array([0.05, -0.45, 0.40])
 CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
 
-metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_colors.pkl"
+metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_colors.pkl"
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 processed_dataset_fp = \
     "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/object_campose_retrieved.hdf5"
@@ -114,6 +113,8 @@ def create_retrieved_dataset(df, droid_path, processed_dataset_path):
                     print(f"Processed demo: {num_written}. Time elapsed: {time.time() - start}")
                 dataset_grp.copy(droid_grp[demo], f'demo_{num_written}')
                 dataset_grp[f'demo_{num_written}'].attrs['original_droid_demo'] = demo
+
+                num_written += 1
 
     print("COMPLETED CREATING PROCESSED DATASET")
 
