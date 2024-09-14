@@ -17,7 +17,7 @@ CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
 metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_colors.pkl"
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 processed_dataset_fp = \
-    "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/object_campose_retrieved.hdf5"
+    "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/all_retrieved.hdf5"
 
 
 def retrieve_objects(df, objects: list=None):
@@ -127,6 +127,13 @@ with open(metadata_fp, "rb") as f:
 df = retrieve_objects(df, ['can'])
 # Filter out demos with more than one pick/place
 df = df[df['num_gripper_closes'] == 1]
+
+# Retrieve spatial
+df = retrieve_spatial(df)
+
+# Retrieve color
+df = retrieve_colors(df, colors=['Green'])
+
 # Then retrieve the campose
 df = retrieve_cam_pose(df)
 print(f"Final df: {df}")

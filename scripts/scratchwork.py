@@ -31,10 +31,14 @@ print()
 
 ### RANDOM SCRATCHWORK
 
-fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_colors.pkl"
+# fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_colors.pkl"
 
-with open(fp, "rb") as f:
-    metadata = pickle.load(f)
+# with open(fp, "rb") as f:
+#     metadata = pickle.load(f)
+
+demo_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_screwdriver_in_drawer/30_fully_extended_red_small_source.hdf5"
+demo = nx.nxload(demo_fn)
+print(demo.tree)
 
 
 
