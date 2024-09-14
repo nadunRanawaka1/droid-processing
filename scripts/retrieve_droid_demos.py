@@ -14,7 +14,7 @@ SHOULDERVIEW_LEFT_SPATIAL_MEANS = np.array([-0.10, 0.35, 0.40])
 SHOULDERVIEW_RIGHT_SPATIAL_MEANS = np.array([0.05, -0.45, 0.40])
 CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
 
-metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_colors.pkl"
+metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_colors.pkl"
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 processed_dataset_fp = \
     "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/random_retrieved.hdf5"
@@ -127,12 +127,12 @@ with open(metadata_fp, "rb") as f:
     df = pickle.load(f)
 
 # First retrieve the object
-# df = retrieve_objects(df, ['can'])
+df = retrieve_objects(df, ['packet'])
 # Filter out demos with more than one pick/place
 df = df[df['num_gripper_closes'] == 1]
 
 # pick 100 random demos
-df = retrieve_n_random(df, n=100)
+# df = retrieve_n_random(df, n=100)
 
 # Retrieve spatial
 # df = retrieve_spatial(df)
@@ -144,5 +144,5 @@ df = retrieve_n_random(df, n=100)
 # df = retrieve_cam_pose(df)
 print(f"Final df: {df}")
 
-create_retrieved_dataset(df, droid_fp, processed_dataset_fp)
+# create_retrieved_dataset(df, droid_fp, processed_dataset_fp)
 
