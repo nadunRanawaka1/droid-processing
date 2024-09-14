@@ -1,9 +1,9 @@
 import h5py
 import nexusformat.nexus as nx
 
-first_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/cam_pose_datasets/target_dataset.hdf5"
-second_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/original_datasets/30_fully_extended_red_small_demo.hdf5"
-combined_fn = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/put_screwdriver_in_drawer/cam_pose_datasets/new_target_dataset.hdf5"
+first_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/green_can_100_demos_demo.hdf5"
+second_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/left_cam_high_75_demos_demo.hdf5"
+combined_fn = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/green_can_100_demos_new_campose.hdf5"
 
 first_file = h5py.File(first_fn, 'r')
 second_file = h5py.File(second_fn, 'r')
@@ -25,15 +25,18 @@ with h5py.File(combined_fn, 'w') as combined_file:
         num_written += 1
 
         total += first_grp[demo].attrs['num_samples']
+        if num_written == 50:
+            break
 
 
     for demo in second_grp:
         print(f"Proccessing demo: {demo}")
         grp.copy(second_grp[demo], f"demo_{num_written}")
-        grp[f"demo_{num_written}/obs/selected_agentview_image"] = grp[f"demo_{num_written}/obs/shoulderview_right_image"]
         num_written += 1
 
         total += second_grp[demo].attrs['num_samples']
+        if num_written == 100:
+            break
 
 
 first_file.close()

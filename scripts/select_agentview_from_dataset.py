@@ -32,6 +32,8 @@ def select_agent_view_in_dict(agentview_dict, dataset_path, processed_dataset_pa
 
             processed_dataset_grp = processed_dataset.create_group("data")
 
+            print(f"CREATING DATASET: {processed_dataset_path}")
+
             #copy over env args
             processed_dataset_grp.attrs['env_args'] = src_dataset_grp.attrs['env_args']
             total = 0
@@ -49,6 +51,9 @@ def select_agent_view_in_dict(agentview_dict, dataset_path, processed_dataset_pa
                     processed_dataset_grp.copy(src_dataset_grp[demo], f"demo_{num_written}")
 
                     # Next, set the selected agentview camera
+
+                    if "selected_agentview_image" in processed_dataset_grp[f"demo_{num_written}/obs"]:
+                        del processed_dataset_grp[f"demo_{num_written}/obs/selected_agentview_image"]
                     processed_dataset_grp[f"demo_{num_written}/obs/selected_agentview_image"] = processed_dataset_grp[f"demo_{num_written}/obs/{camera}"]
                     # processed_dataset_grp[f"demo_{num_written}"].attrs["Original_Droid_Demo_Number"] = demo
 
@@ -76,23 +81,23 @@ def create_target_datasets(demo_fn, processed_datasets_folder):
     dict_list = []
 
 
-    # # CREATE 10 TARGET DATASET (SHOULDERVIEW LEFT AS AGENTVIEW)
+    # # CREATE 10 TARGET DATASET (shoulderview_right AS AGENTVIEW)
 
-    target_dict_10_demos =  {"shoulderview_left_image": deepcopy(demo_list[:10])}
+    target_dict_10_demos =  {"shoulderview_right_image": deepcopy(demo_list[:10])}
     target_dict_path_10_demos = os.path.join(processed_datasets_folder, "10_target_dataset.hdf5")
 
     dict_list.append((target_dict_10_demos, target_dict_path_10_demos))
 
-    # # CREATE 20 TARGET DATASET (SHOULDERVIEW LEFT AS AGENTVIEW)
+    # # CREATE 20 TARGET DATASET (LEFT AS AGENTVIEW)
 
-    target_dict_20_demos =  {"shoulderview_left_image": deepcopy(demo_list[:20])}
+    target_dict_20_demos =  {"shoulderview_right_image": deepcopy(demo_list[:20])}
     target_dict_path_20_demos = os.path.join(processed_datasets_folder, "20_target_dataset.hdf5")
 
     dict_list.append((target_dict_20_demos, target_dict_path_20_demos))
 
-     # # CREATE 30 TARGET DATASET (SHOULDERVIEW LEFT AS AGENTVIEW)
+     # # CREATE 30 TARGET DATASET ( LEFT AS AGENTVIEW)
 
-    target_dict_30_demos =  {"shoulderview_left_image": deepcopy(demo_list[:30])}
+    target_dict_30_demos =  {"shoulderview_right_image": deepcopy(demo_list[:30])}
     target_dict_path_30_demos = os.path.join(processed_datasets_folder, "30_target_dataset.hdf5")
 
     dict_list.append((target_dict_30_demos, target_dict_path_30_demos))
@@ -121,37 +126,40 @@ def create_agentview_dicts(demo_fn, processed_datasets_folder):
     N = len(demo_list)
 
 
-
     # # SELECTING RIGHT Image AS AGENTVIEW
     # right_image_dict = {"right_image": deepcopy(demo_list)} # DONE
     # right_image_dict_path = os.path.join(processed_datasets_folder, "right_image_as_agentview.hdf5")
     # dict_list.append((right_image_dict, right_image_dict_path))
+
+    # # SELECTING LEFT Image as AGENTVIEW
+    left_image_dict = {"left_image": deepcopy(demo_list)}
+    left_image_dict_path = os.path.join(processed_datasets_folder, "left_image.hdf5")
+    dict_list.append((left_image_dict, left_image_dict_path))
+
 
     # # SELECTING RIGHT SHOULDERVIEW AS AGENTVIEW (SMALL_BASE_CONFIG)
     shoulderview_right_image_dict = {"shoulderview_right_image": deepcopy(demo_list)}
     shoulderview_right_image_dict_path = os.path.join(processed_datasets_folder, "shoulderview_right_image_SBC.hdf5")
     dict_list.append((shoulderview_right_image_dict, shoulderview_right_image_dict_path))
 
-    # # BEST DATASET, SELECT SHOULDERVIEW LEFT AS AGENTVIEW
-   
-    shoulderview_left_image_dict = {"shoulderview_left_image": deepcopy(demo_list)}
-    shoulderview_left_image_dict_path = os.path.join(processed_datasets_folder, "shoulderview_left_image.hdf5")
-    dict_list.append((shoulderview_left_image_dict, shoulderview_left_image_dict_path))
+    # # SELECT SHOULDERVIEW LEFT AS AGENTVIEW
+    # shoulderview_left_image_dict = {"shoulderview_left_image": deepcopy(demo_list)}
+    # shoulderview_left_image_dict_path = os.path.join(processed_datasets_folder, "shoulderview_left_image.hdf5")
+    # dict_list.append((shoulderview_left_image_dict, shoulderview_left_image_dict_path))
 
 
     # # SELECTING LEFT AND RIGHT VIEW AS AGENTVIEW
-    right_image_agentview = demo_list[:N//2]
-    left_image_agentview = [d for d in demo_list if d not in right_image_agentview]
+    # right_image_agentview = demo_list[:N//2]
+    # left_image_agentview = [d for d in demo_list if d not in right_image_agentview]
 
 
-    left_right_image_dict = {"right_image": deepcopy(right_image_agentview),
-                        "left_image": deepcopy(left_image_agentview)} 
+    # left_right_image_dict = {"right_image": deepcopy(right_image_agentview),
+    #                     "left_image": deepcopy(left_image_agentview)} 
     
-    left_right_image_dict_path = os.path.join(processed_datasets_folder, "left_image_and_right_image.hdf5")
-    dict_list.append((left_right_image_dict, left_right_image_dict_path))
+    # left_right_image_dict_path = os.path.join(processed_datasets_folder, "left_image_and_right_image.hdf5")
+    # dict_list.append((left_right_image_dict, left_right_image_dict_path))
 
     # # SELECTING RIGHTVIEW AND SHOULDERVIEW RIGHT AS AGENTVIEW
-
     right_image_agentview = demo_list[:N//2]
     shoulderview_right_image_agentview = [d for d in demo_list if d not in right_image_agentview]
 
@@ -214,11 +222,11 @@ if __name__ == "__main__":
 
     ### Create the cotraining datasets
 
-    agentview_dicts_and_save_paths = create_agentview_dicts(args.dataset_path, args.processed_datasets_folder)
+    # agentview_dicts_and_save_paths = create_agentview_dicts(args.dataset_path, args.processed_datasets_folder)
 
-    for (agentview_dict, save_path) in agentview_dicts_and_save_paths:
+    # for (agentview_dict, save_path) in agentview_dicts_and_save_paths:
 
-        select_agent_view_in_dict(agentview_dict, args.dataset_path, save_path)
+    #     select_agent_view_in_dict(agentview_dict, args.dataset_path, save_path)
 
     
     ### Create the target datasets
