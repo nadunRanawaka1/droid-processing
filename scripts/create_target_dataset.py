@@ -26,7 +26,7 @@ def create_target_dataset(dataset_path, target_dataset_path, target_num):
                 if num_written >= target_num:
                     break
 
-target_nums = [10, 30, 50, 70]
+target_nums = [20]
 
 dataset_path = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/left_cam_high_75_demos_filtered.hdf5"
 
