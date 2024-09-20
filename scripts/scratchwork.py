@@ -6,9 +6,10 @@ import re
 import pandas as pd
 
 # metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
-# metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/all_droid_metadata.pkl"
+metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/all_droid_metadata.pkl"
+metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 
-# df = pd.read_pickle(metadata_fp)
+df = pd.read_pickle(metadata_fp)
 
 # # unique_lang_1_counts = df["language_instruction_1"].value_counts()[1:] # index from 1 to remove empty string
 # # unique_lang_2_counts = df["language_instruction_2"].value_counts()[1:]
