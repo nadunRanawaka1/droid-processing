@@ -51,6 +51,39 @@ def add_lang(path):
     droid.close()
 
 
+def add_dummy_lang(path):
+    start = time.time()
+    droid = h5py.File(path, 'a')
+    droid_data = droid['data']
+
+    num_written = 0
+    dummy_lang = "droid dataset"
+
+    for demo in droid_data:
+        demo_grp = droid_data[demo]
+        obs = demo_grp['obs']
+
+        if (num_written % 1000) == 0:
+            print(f"Processing demo: {num_written}. Time elapsed: {time.time() - start}")
+
+        num_written += 1
+
+        # if "language_raw_fixed" in obs:
+        #     del obs['language_raw_fixed']
+        # if "language_distilbert_fixed" in obs:
+        #     del obs['language_distilbert_fixed']
+
+        H = demo_grp['absolute_actions'].shape[0]
+        encoded_input = tokenizer(dummy_lang, return_tensors='pt').to('cuda')
+        outputs = model(**encoded_input)
+        encoded_lang = outputs.last_hidden_state.sum(1).squeeze().unsqueeze(0).repeat(H, 1)
+
+        obs.create_dataset("dummy_lang", data=[dummy_lang]*H)
+        obs.create_dataset("dummy_distilbert", data=encoded_lang.cpu().detach().numpy())
+
+    droid.close()
+
+
 
     # Extract language data
     # if "lang_fixed" not in f["observation"]:
@@ -68,7 +101,10 @@ def add_lang(path):
 
 
 
-droid_path = "/media/nadun/Data/Droid/droid_hdf5/droid_100.hdf5"
+droid_path = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 
-add_lang(droid_path)
+# add_lang(droid_path)
+
+add_dummy_lang(droid_path)
+
 

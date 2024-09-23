@@ -37,17 +37,19 @@ print()
 # with open(fp, "rb") as f:
 #     metadata = pickle.load(f)
 
-demo_fn = "/media/nadun/Data/Droid/droid_hdf5/droid_exp_datasets/all_retrieved.hdf5"
+demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/target_datasets/20_target_dataset_with_lang.hdf5"
 demo_file = nx.nxload(demo_fn)
 print(demo_file.tree)
 
-demo_file = h5py.File(demo_fn)
+# demo_file = h5py.File(demo_fn, 'r')
+# masks = demo_file['mask']
+# print(masks['successful_with_lang'][:])
 
-demos = demo_file['data']
-demo = demos['demo_20']
+# demos = demo_file['data']
+# demo = demos['demo_20']
 
-eef_pos = demo['obs/eef_pos'][:]
-absolute_actions = demo['absolute_actions'][:]
+# eef_pos = demo['obs/eef_pos'][:]
+# absolute_actions = demo['absolute_actions'][:]
 
 
 
