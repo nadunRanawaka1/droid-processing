@@ -14,10 +14,10 @@ SHOULDERVIEW_LEFT_SPATIAL_MEANS = np.array([-0.10, 0.35, 0.40])
 SHOULDERVIEW_RIGHT_SPATIAL_MEANS = np.array([0.05, -0.45, 0.40])
 CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
 
-metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+metadata_fp = "/coc/flash8/wshin49/droid/metadata/wipe_plate.pkl"
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 processed_dataset_fp = \
-    "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/campose+spatial_retrieved.hdf5"
+    "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_plate/cotraining_datasets/all_wipe_plate.hdf5"
 
 
 
@@ -127,10 +127,10 @@ def retrieve_n_random(df, n=100):
 with open(metadata_fp, "rb") as f:
     df = pickle.load(f)
 
-# First retrieve the object
-df = retrieve_objects(df, ['packet', 'snack', 'chips'])
+### First retrieve the object
+# df = retrieve_objects(df, ['packet', 'snack', 'chips'])
 
-# Get pick and place tasks
+### Get pick and place tasks
 
 df = df[df['pick_place'] == True]
 # Filter out demos with more than one pick/place
@@ -138,21 +138,21 @@ df = df[df['num_gripper_closes'] == 1]
 
 
 
-# pick 100 random demos
+### pick 100 random demos
 # df = retrieve_n_random(df, n=100)
 
-# Retrieve spatial
-df = retrieve_spatial(df)
+### Retrieve spatial
+# df = retrieve_spatial(df)
 
-# Retrieve color
+### Retrieve color
 # df = retrieve_colors(df, colors=['Green'])
 
-# Then retrieve the campose
+### Then retrieve the campose
 # df = retrieve_cam_pose(df)
 
 
-# Pick upto 100 demos
-df = df if len(df) < 100 else df.sample(n=100)
-print(f"Final df: {df}")
+### Pick upto 100 demos
+# df = df if len(df) < 100 else df.sample(n=100)
+# print(f"Final df: {df}")
 
 create_retrieved_dataset(df, droid_fp, processed_dataset_fp)
