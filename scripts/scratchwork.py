@@ -7,9 +7,9 @@ import pandas as pd
 
 # metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/droid_metadata.pkl"
 metadata_fp = "/media/nadun/Data/Droid/droid_hdf5/metadata/all_droid_metadata.pkl"
-metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
-
-df = pd.read_pickle(metadata_fp)
+# metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+#
+# df = pd.read_pickle(metadata_fp)
 
 # # unique_lang_1_counts = df["language_instruction_1"].value_counts()[1:] # index from 1 to remove empty string
 # # unique_lang_2_counts = df["language_instruction_2"].value_counts()[1:]
@@ -37,9 +37,18 @@ print()
 # with open(fp, "rb") as f:
 #     metadata = pickle.load(f)
 
-demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/target_datasets/30_target_dataset.hdf5"
-demo = nx.nxload(demo_fn)
-print(demo.tree)
+demo_fn = "/media/nadun/Data/Droid/droid_hdf5/droid_exp_datasets/all_retrieved.hdf5"
+demo_file = nx.nxload(demo_fn)
+print(demo_file.tree)
+
+demo_file = h5py.File(demo_fn)
+
+demos = demo_file['data']
+demo = demos['demo_20']
+
+eef_pos = demo['obs/eef_pos'][:]
+absolute_actions = demo['absolute_actions'][:]
+
 
 
 
