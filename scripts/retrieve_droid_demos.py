@@ -4,24 +4,34 @@ import pandas as pd
 import numpy as np
 import h5py
 import time
+import os
 
 # TODO setup some constants
 
-SPATIAL_MEANS = np.array([0.55, 0.05, 0.25])
+SPATIAL_MEANS = np.array([0.55, 0.05, 0.35]) # For wipe
+# SPATIAL_MEANS = np.array([0.55, 0.05, 0.25]) # For all other tasks
 SPATIAL_DEVIATIONS = np.array([0.30, 0.30, 0.20])
 
 SHOULDERVIEW_LEFT_SPATIAL_MEANS = np.array([-0.10, 0.35, 0.40])
 SHOULDERVIEW_RIGHT_SPATIAL_MEANS = np.array([0.05, -0.45, 0.40])
 CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
 
-metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+# metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
-processed_dataset_fp = \
-    "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_plate/cotraining_datasets/all_wipe_plate.hdf5"
+processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_board/cotraining_datasets"
+
+if not os.path.exists(processed_dataset_dir):
+    os.makedirs(processed_dataset_dir)
+
+# processed_dataset_fp = \
+#     "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_board/cotraining_datasets/spatial_retrieved.hdf5"
 
 
+def sample_df(df, max_samples=100):
+    df = df if len(df) < max_samples else df.sample(n=max_samples)
+    return df
 
 def retrieve_objects(df, objects: list=None):
     """
@@ -130,7 +140,7 @@ with open(metadata_fp, "rb") as f:
     df = pickle.load(f)
 
 ### First retrieve the object
-df = retrieve_objects(df, ['cup', 'mug'])
+df = retrieve_objects(df, ['cloth'])
 
 ### Get pick and place tasks
 
@@ -139,22 +149,36 @@ df = df[df['pick_place'] == True]
 df = df[df['num_gripper_closes'] == 1]
 
 
+object_df = sample_df(df)
+print(f"object df: {object_df}")
+object_dataset_path = os.path.join(processed_dataset_dir, "object_retrieved.hdf5")
+create_retrieved_dataset(object_df, droid_fp, object_dataset_path)
+
 
 ### pick 100 random demos
 # df = retrieve_n_random(df, n=100)
 
 ### Retrieve spatial
-# df = retrieve_spatial(df)
+spatial_df = sample_df(retrieve_spatial(df))
+print(f"spatial df: {spatial_df}")
+spatial_dataset_path = os.path.join(processed_dataset_dir, "spatial_retrieved.hdf5")
+create_retrieved_dataset(spatial_df, droid_fp, spatial_dataset_path)
 
 ### Retrieve color
-# df = retrieve_colors(df, colors=['Green'])
+color_df = sample_df(retrieve_colors(df, colors=['gray', 'black']))
+print(f"color df : {color_df}")
+color_dataset_path = os.path.join(processed_dataset_dir, "tex_retrieved.hdf5")
+create_retrieved_dataset(color_df, droid_fp, color_dataset_path)
 
 ### Then retrieve the campose
-# df = retrieve_cam_pose(df)
+campose_df = sample_df(retrieve_cam_pose(df))
+print(f"campose_df: {campose_df}")
+campose_dataset_path = os.path.join(processed_dataset_dir, "campose_retrieved.hdf5")
+create_retrieved_dataset(campose_df, droid_fp, campose_dataset_path)
 
 
 ### Pick upto 100 demos
-# df = df if len(df) < 100 else df.sample(n=100)
+
 # print(f"Final df: {df}")
 
-create_retrieved_dataset(df, droid_fp, processed_dataset_fp)
+# create_retrieved_dataset(df, droid_fp, processed_dataset_fp)

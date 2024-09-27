@@ -1,9 +1,15 @@
 import h5py
 import time
+import os
 
 
 
-def create_target_dataset(dataset_path, target_dataset_path, target_num):
+def create_target_dataset(dataset_path, save_dir, target_num):
+
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    
+    target_dataset_path = os.path.join(save_dir, f"{target_num}_target_dataset.hdf5")
 
     print(f"Creating target dataset: {target_dataset_path}")
     start = time.time()
@@ -26,10 +32,11 @@ def create_target_dataset(dataset_path, target_dataset_path, target_num):
                 if num_written >= target_num:
                     break
 
-target_nums = [20]
+target_nums = [20, 30, 50]
 
-dataset_path = "/nethome/nkra3/robomimic-v2/datasets/collector/put_can_in_box/original_demos/left_cam_high_75_demos_filtered.hdf5"
+dataset_path = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/marker_demo.hdf5"
+save_dir = f"/nethome/nkra3/robomimic-v2/datasets/retriever/put_marker_in_cup/target_datasets/"
 
 for num in target_nums:
-    target_path = f"/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/target_datasets/{num}_target_dataset.hdf5"
-    create_target_dataset(dataset_path, target_path, num)
+    # target_path = f"/nethome/nkra3/robomimic-v2/datasets/retriever/pour_bowl/target_datasets/"
+    create_target_dataset(dataset_path, save_dir, num)

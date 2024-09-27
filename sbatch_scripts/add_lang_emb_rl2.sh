@@ -18,5 +18,5 @@ conda deactivate
 conda activate droid
 
 cd /coc/flash7/nkra3/Droid/droid-processing
-srun -u python -u scripts/add_lang_emb_to_rl2.py --raw_lang='put the can in the box' \
- --dataset_path=/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/target_datasets/50_target_dataset.hdf5
+srun -u python -u scripts/add_lang_emb_to_rl2.py --raw_lang='wipe the whiteboard with the cloth' \
+ --dataset_path=/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/wipe_left_demo.hdf5
