@@ -15,20 +15,20 @@ SPATIAL_DEVIATIONS = np.array([0.30, 0.30, 0.20])
 # SHOULDERVIEW_LEFT_CAMPOSE_MEANS = np.array([-0.10, 0.35, 0.40])
 # SHOULDERVIEW_RIGHT_CAMPOSE_MEANS = np.array([0.05, -0.45, 0.40])
 
-SHOULDERVIEW_LEFT_CAMPOSE_MEANS = np.array([-0.10, 0.35, 0.40])
+SHOULDERVIEW_LEFT_CAMPOSE_MEANS = np.array([-0.05, 0.45, 0.40])
 SHOULDERVIEW_RIGHT_CAMPOSE_MEANS = np.array([-0.10, -0.45, 0.40])
 
 
-CAM_DEVIATIONS = np.array([0.20, 0.20, 0.10])
+CAM_DEVIATIONS = np.array([0.22, 0.22, 0.10])
 
-# metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
-metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+# metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
 processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/baking/cotraining_datasets"
 
-if not os.path.exists(processed_dataset_dir):
-    os.makedirs(processed_dataset_dir)
+# if not os.path.exists(processed_dataset_dir):
+#     os.makedirs(processed_dataset_dir)
 
 # processed_dataset_fp = \
 #     "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_board/cotraining_datasets/spatial_retrieved.hdf5"
@@ -193,3 +193,5 @@ for obj in object_list:
         counterfactual_campose_df = pd.concat([counterfactual_campose_df, campose_df], ignore_index=True)
         counterfactual_color_df = pd.concat([counterfactual_color_df, color_df], ignore_index=True)
         counterfactual_spatial_df = pd.concat([counterfactual_spatial_df, spatial_df], ignore_index=True)
+
+print()
