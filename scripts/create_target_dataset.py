@@ -32,10 +32,10 @@ def create_target_dataset(dataset_path, save_dir, target_num):
                 if num_written >= target_num:
                     break
 
-target_nums = [20, 30, 50]
+target_nums = [5]
 
-dataset_path = "/nethome/nkra3/flash7/Droid/robomimic-dev/datasets/kitchen/marker_demo.hdf5"
-save_dir = f"/nethome/nkra3/robomimic-v2/datasets/retriever/put_marker_in_cup/target_datasets/"
+dataset_path = "/nethome/nkra3/robomimic-v2/datasets/collector/baking/obj_spat_datasets/large_spat.hdf5"
+save_dir = f"/nethome/nkra3/robomimic-v2/datasets/retriever/baking/target_datasets"
 
 for num in target_nums:
     # target_path = f"/nethome/nkra3/robomimic-v2/datasets/retriever/pour_bowl/target_datasets/"

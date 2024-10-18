@@ -8,19 +8,24 @@ import os
 
 # TODO setup some constants
 
-SPATIAL_MEANS = np.array([0.55, 0.05, 0.35]) # For wipe
-# SPATIAL_MEANS = np.array([0.55, 0.05, 0.25]) # For all other tasks
+# SPATIAL_MEANS = np.array([0.55, 0.05, 0.35]) # For wipe
+SPATIAL_MEANS = np.array([0.55, 0.05, 0.25]) # For all other tasks
 SPATIAL_DEVIATIONS = np.array([0.30, 0.30, 0.20])
 
-SHOULDERVIEW_LEFT_SPATIAL_MEANS = np.array([-0.10, 0.35, 0.40])
-SHOULDERVIEW_RIGHT_SPATIAL_MEANS = np.array([0.05, -0.45, 0.40])
-CAM_DEVIATIONS = np.array([0.30, 0.30, 0.10])
+# SHOULDERVIEW_LEFT_CAMPOSE_MEANS = np.array([-0.10, 0.35, 0.40])
+# SHOULDERVIEW_RIGHT_CAMPOSE_MEANS = np.array([0.05, -0.45, 0.40])
+
+SHOULDERVIEW_LEFT_CAMPOSE_MEANS = np.array([-0.10, 0.35, 0.40])
+SHOULDERVIEW_RIGHT_CAMPOSE_MEANS = np.array([-0.10, -0.45, 0.40])
+
+
+CAM_DEVIATIONS = np.array([0.20, 0.20, 0.10])
 
 # metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
-processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_board/cotraining_datasets"
+processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/baking/cotraining_datasets"
 
 if not os.path.exists(processed_dataset_dir):
     os.makedirs(processed_dataset_dir)
@@ -64,11 +69,11 @@ def retrieve_spatial(df):
 
 def retrieve_cam_pose(df):
 
-    left_low = SHOULDERVIEW_LEFT_SPATIAL_MEANS - CAM_DEVIATIONS
-    left_high = SHOULDERVIEW_LEFT_SPATIAL_MEANS + CAM_DEVIATIONS
+    left_low = SHOULDERVIEW_LEFT_CAMPOSE_MEANS - CAM_DEVIATIONS
+    left_high = SHOULDERVIEW_LEFT_CAMPOSE_MEANS + CAM_DEVIATIONS
 
-    right_low = SHOULDERVIEW_RIGHT_SPATIAL_MEANS - CAM_DEVIATIONS
-    right_high = SHOULDERVIEW_RIGHT_SPATIAL_MEANS + CAM_DEVIATIONS
+    right_low = SHOULDERVIEW_RIGHT_CAMPOSE_MEANS - CAM_DEVIATIONS
+    right_high = SHOULDERVIEW_RIGHT_CAMPOSE_MEANS + CAM_DEVIATIONS
 
     # Filter out demos without cam extrinsics
     df = df[df['ext1_cam_extrinsics'].apply(len) > 0]
@@ -140,7 +145,7 @@ with open(metadata_fp, "rb") as f:
     df = pickle.load(f)
 
 ### First retrieve the object
-df = retrieve_objects(df, ['cloth'])
+df = retrieve_objects(df, ['marker'])
 
 ### Get pick and place tasks
 
@@ -152,7 +157,7 @@ df = df[df['num_gripper_closes'] == 1]
 object_df = sample_df(df)
 print(f"object df: {object_df}")
 object_dataset_path = os.path.join(processed_dataset_dir, "object_retrieved.hdf5")
-create_retrieved_dataset(object_df, droid_fp, object_dataset_path)
+# create_retrieved_dataset(object_df, droid_fp, object_dataset_path)
 
 
 ### pick 100 random demos
@@ -162,10 +167,10 @@ create_retrieved_dataset(object_df, droid_fp, object_dataset_path)
 spatial_df = sample_df(retrieve_spatial(df))
 print(f"spatial df: {spatial_df}")
 spatial_dataset_path = os.path.join(processed_dataset_dir, "spatial_retrieved.hdf5")
-create_retrieved_dataset(spatial_df, droid_fp, spatial_dataset_path)
+# create_retrieved_dataset(spatial_df, droid_fp, spatial_dataset_path)
 
 ### Retrieve color
-color_df = sample_df(retrieve_colors(df, colors=['gray', 'black']))
+color_df = sample_df(retrieve_colors(df, colors=['green']))
 print(f"color df : {color_df}")
 color_dataset_path = os.path.join(processed_dataset_dir, "tex_retrieved.hdf5")
 create_retrieved_dataset(color_df, droid_fp, color_dataset_path)
@@ -174,7 +179,7 @@ create_retrieved_dataset(color_df, droid_fp, color_dataset_path)
 campose_df = sample_df(retrieve_cam_pose(df))
 print(f"campose_df: {campose_df}")
 campose_dataset_path = os.path.join(processed_dataset_dir, "campose_retrieved.hdf5")
-create_retrieved_dataset(campose_df, droid_fp, campose_dataset_path)
+# create_retrieved_dataset(campose_df, droid_fp, campose_dataset_path)
 
 
 ### Pick upto 100 demos

@@ -37,7 +37,7 @@ print()
 # with open(fp, "rb") as f:
 #     metadata = pickle.load(f)
 
-demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/put_marker_in_cup/target_datasets/30_target_dataset.hdf5"
+demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/baking/target_datasets/baking_5_demos.hdf5"
 demo_file = nx.nxload(demo_fn)
 print(demo_file.tree)
 

@@ -5,11 +5,11 @@ import h5py
 import nexusformat.nexus as nx
 
 
-demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/lift_block/target_datasets/50_target_dataset.hdf5"
+demo_fn = "/nethome/nkra3/robomimic-v2/datasets/retriever/put_can_in_box/cotraining_datasets/spatial_retrieved.hdf5"
 
-CAMERA_NAME = "shoulderview_right_image" # can change this
-OUTPUT_FOLDER_NAME = "/nethome/nkra3/robomimic-v2/videos/retriever/lift_block/dataset_videos"
-VIDEO_NAME = "target"
+CAMERA_NAME = "shoulderview_left_image" # can change this
+OUTPUT_FOLDER_NAME = "/nethome/nkra3/robomimic-v2/videos/retriever/put_can_in_box"
+VIDEO_NAME = "spatial_retrieved_can_2"
 
 video_folder = OUTPUT_FOLDER_NAME
 if not os.path.exists(video_folder):
