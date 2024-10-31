@@ -21,17 +21,14 @@ SHOULDERVIEW_RIGHT_CAMPOSE_MEANS = np.array([-0.10, -0.45, 0.40])
 
 CAM_DEVIATIONS = np.array([0.22, 0.22, 0.10])
 
-metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
-# metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+# metadata_fp = "/media/nadun/Data/Droid/metadata/droid_metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
+metadata_fp = "/coc/flash8/wshin49/droid/metadata/all_droid_metadata_with_pick_and_place_tasks.pkl"
 
 droid_fp = "/nethome/nkra3/8flash/Droid_backup/droid_hdf5/droid.hdf5"
-processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/baking/cotraining_datasets"
+processed_dataset_dir = "/nethome/nkra3/robomimic-v2/datasets/retriever/baking/counterfactual_datasets"
 
-# if not os.path.exists(processed_dataset_dir):
-#     os.makedirs(processed_dataset_dir)
-
-# processed_dataset_fp = \
-#     "/nethome/nkra3/robomimic-v2/datasets/retriever/wipe_board/cotraining_datasets/spatial_retrieved.hdf5"
+if not os.path.exists(processed_dataset_dir):
+    os.makedirs(processed_dataset_dir)
 
 
 def sample_df(df, max_samples=20):
@@ -166,7 +163,7 @@ def create_datasets_for_object(object):
    
 
     ### Retrieve color
-    color_df = sample_df(retrieve_colors(df, colors=['red']))
+    color_df = sample_df(retrieve_colors(df, colors=['green']))
 
     ### Retrieve the campose
     campose_df = sample_df(retrieve_cam_pose(df))
@@ -174,7 +171,7 @@ def create_datasets_for_object(object):
     return object_df, spatial_df, color_df, campose_df
 
 
-object_list = ['can', 'bowl', 'cup', 'marker', 'block']
+object_list = ['can', 'packet', 'cup', 'marker', 'block']
 
 counterfactual_object_df = None
 counterfactual_spatial_df = None
@@ -194,4 +191,14 @@ for obj in object_list:
         counterfactual_color_df = pd.concat([counterfactual_color_df, color_df], ignore_index=True)
         counterfactual_spatial_df = pd.concat([counterfactual_spatial_df, spatial_df], ignore_index=True)
 
-print()
+object_dataset_path = os.path.join(processed_dataset_dir, "object_retrieved.hdf5")
+create_retrieved_dataset(counterfactual_object_df, droid_fp, object_dataset_path)
+
+spatial_dataset_path = os.path.join(processed_dataset_dir, "spatial_retrieved.hdf5")
+create_retrieved_dataset(counterfactual_spatial_df, droid_fp, spatial_dataset_path)
+
+color_dataset_path = os.path.join(processed_dataset_dir, "tex_retrieved.hdf5")
+create_retrieved_dataset(counterfactual_color_df, droid_fp, color_dataset_path)
+
+campose_dataset_path = os.path.join(processed_dataset_dir, "campose_retrieved.hdf5")
+create_retrieved_dataset(counterfactual_campose_df, droid_fp, campose_dataset_path)
